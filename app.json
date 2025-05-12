@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/tennis/tennis",
+    "pages/personal/personal",
+    "pages/book/book",
+    "pages/match/match"
+  ],
+  "window": {
+    "navigationBarTitleText": "功能演示",
+    "navigationBarBackgroundColor": "#000000",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "black"
+  },
+  "usingComponents": {
+    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-popup": "tdesign-miniprogram/popup/popup",
+    "t-slider": "tdesign-miniprogram/slider/slider"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#000000",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/tennis/tennis",
+        "text": "",
+        "iconPath": "images/tennis.png",
+        "selectedIconPath": "images/tennis_select.png"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "text": "",
+        "iconPath": "images/ps.png",
+        "selectedIconPath": "images/ps_select.png"
+      }
+    ]
+  }
+}

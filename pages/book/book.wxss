@@ -1,0 +1,431 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 满屏 */
+}
+
+.fixed-top {
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* 导航栏 */
+
+.nav-bar {
+  height: 44px;
+  padding-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* position: relative; */
+  border-bottom: 1px solid #eee;
+}
+
+.back-button {
+  position: absolute;
+  left: 16px;
+  width: 25rpx;
+  height: 25rpx;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 450;
+}
+
+/* 日期 */
+
+.date-scroll-view {
+  height: 60px;
+  white-space: nowrap;
+  /* background: #f8f8f8; */
+  /* border-bottom: 1px solid #ddd; */
+  padding-top: 30rpx;
+  padding-bottom: 20rpx;
+  /* padding-inline: 10rpx; */
+}
+
+.date-button-container {
+  display: inline-flex;
+}
+
+.date-button {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px;
+  /* padding: 10px 14px; */
+  /* border-radius: 20rpx; */
+  background-color: #f3f2f2;
+  color: black;
+  font-size: 14px;
+  /* border: 1px solid #ccc; */
+  min-width: 75px;
+  height: 50px;
+  box-sizing: border-box;
+}
+
+.date-button.active {
+  background-color: black;
+  color: white;
+}
+
+.date-label {
+  font-size: 12px;
+  font-weight: 300rpx;
+}
+
+.date-value {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* Schedule */
+
+.scrollable-content {
+  flex: 1;
+  overflow: hidden; 
+  margin-bottom: 190rpx;
+}
+
+.schedule-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  height: 100%;
+  /* background: #f9f9f9; */
+  padding-right: 25rpx;
+}
+
+.schedule-scroll {
+  flex: 1;
+  overflow-y: scroll;
+}
+
+.header-row,
+.time-row {
+  display: flex;
+  justify-content: center;
+}
+
+.slot {
+  width: 70px; /* 固定列宽，确保对齐 */
+  height: 36px;
+  display: flex;
+  align-items: center;   /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  box-sizing: border-box;
+  /* border: 1px solid #ddd; */
+  margin-inline: 8rpx;
+  margin-block: 8rpx;
+  /* border-radius: 16rpx; */
+}
+
+.header-cell {
+  width: 70px; /* 固定列宽，确保对齐 */
+  height: 18px;
+  display: flex;
+  align-items: center;   /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  box-sizing: border-box;
+  /* border: 1px solid #ddd; */
+  margin-inline: 8rpx;
+  margin-block: 8rpx;
+  font-size: 22rpx;
+  font-weight: bolder;
+}
+
+.time-cell {
+  width: 40px; /* 固定列宽，确保对齐 */
+  height: 36px;
+  display: flex;
+  align-items: center;   /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  box-sizing: border-box;
+  /* border: 1px solid #ddd; */
+  margin-inline: 8rpx;
+  margin-block: 8rpx;
+  font-size: 22rpx;
+  font-weight: bolder;
+}
+
+/* slot 状态样式 */
+.available {
+  background-color: #f0f0f0;
+}
+
+.booked {
+  background-color: rgb(214, 214, 214);
+}
+
+.selected {
+  background-color: rgb(133, 221, 133);
+}
+
+.time-header {
+  width: 40px;
+  /* background: #eee; */
+}
+
+/* 底部下单栏 */
+
+.bottom-bar {
+  height: 140rpx;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 16rpx;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 999;
+  /* margin-bottom: 10rpx; */
+  padding-top: 20rpx;
+}
+
+/* 左侧价格信息 */
+.book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  margin-left: 30rpx;
+}
+
+.price-info {
+  display: flex;
+  align-items: flex-end;
+}
+
+.total-label {
+  font-size: 20rpx;
+  margin-left: 5rpx;
+  margin-bottom: 7rpx;
+  font-weight: bold;
+  color: #e60012; /* 红色 */
+}
+
+.price {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #e60012; /* 红色 */
+}
+
+.hours {
+  font-size: 20rpx;
+  color: #888;
+}
+
+.submit-button-view {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  color: #fff;
+  font-size: 32rpx;
+  /* padding: 28rpx 160rpx; */
+  /* border-radius: 16rpx; */
+  font-weight: 500;
+  margin-right: 40rpx;
+  height: 100rpx;
+  width: 420rpx;
+}
+
+.submit-button-view-disable {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid #cccccc; 
+  color: #cccccc;
+  font-size: 32rpx;
+  /* padding: 28rpx 160rpx; */
+  /* border-radius: 16rpx; */
+  font-weight: 500;
+  margin-right: 40rpx;
+  height: 100rpx;
+  width: 420rpx;
+}
+
+
+/* POPUP  */
+
+.popup {
+  --td-popup-border-radius: 0rpx;
+}
+
+.popup-block {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  height: 550rpx;
+  /* background-color: chartreuse; */
+}
+
+.popup-bottom-bar {
+  /* flex-shrink: 0; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* padding-bottom: 16rpx; */
+  border-top: 1px solid #ddd;
+  /* background: #fff; */
+  /* position: fixed; */
+  /* bottom: 0; */
+  height: 100rpx;
+  width: 100%;
+  /* z-index: 999; */
+  /* margin-bottom: 10rpx; */
+  /* padding-top: 20rpx; */
+  /* background-color: blue; */
+}
+
+.popup-submit-button-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 90rpx; */
+  /* width: 200rpx; */
+  background-color: #000000;
+  color: #fff;
+  font-size: 32rpx;
+  padding: 24rpx 300rpx;
+  /* border-radius: 16rpx; */
+  font-weight: 500;
+  /* margin-left: 40rpx; */
+  margin-top: 20rpx;
+}
+
+.popup-topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 120rpx;
+  background-color: rgb(253, 253, 253);
+  /* padding: 20rpx; */
+  /* margin-top: 20rpx; */
+  /* background-color: brown; */
+}
+
+.popup-date-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* background-color: cyan; */
+  /* margin-top: 20rpx; */
+  height: 100%;
+}
+
+.popup-date {
+  display: flex;
+  font-size: 30rpx;
+  font-weight: 500;
+  padding-top: 15rpx;
+  padding-left: 20rpx;
+}
+
+.popup-week {
+  display: flex;
+  font-size: 26rpx;
+  font-weight: 500;
+  padding-bottom: 15rpx;
+  padding-left: 20rpx;
+}
+
+.popup-price {
+  height: 100%;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #e60012; /* 红色 */
+  /* background-color: black; */
+  padding-right: 30rpx;
+  padding-top: 30rpx; 
+  /* background-color: darkcyan; */
+}
+
+/* POPUP BLOCKS */
+
+.scroll-area {
+  display: flex;
+  flex-direction: column;
+  height: 330rpx;
+  width: 100%;
+  /* overflow: hidden; */
+  /* background-color: cornflowerblue; */
+}
+
+/* 滚动区域内容：2列布局 */
+.block-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-start;
+  padding-top: 12rpx;
+  box-sizing: border-box;
+}
+
+.block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 49%;
+  background-color: #f0f0f0;
+  color: #000;
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+  box-sizing: border-box;
+}
+
+
+
+.block-left {
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; */
+}
+
+.block-name {
+  font-size: 26rpx;
+  /* font-weight: bold; */
+  margin-bottom: 20rpx;
+}
+
+.block-time {
+  font-size: 24rpx;
+  /* margin-bottom: 20rpx; */
+}
+
+.block-price {
+  font-size: 26rpx;
+  color: #000000;
+  font-weight: 400;
+  margin-bottom: 40rpx;
+}
+
+
+
+
+
+

@@ -1,0 +1,75 @@
+<!--pages/tennis/tennis.wxml-->
+<view>
+  <view>
+    <view class="fixed-box" style="opacity: {{opacity}};"></view>
+    <image class="corner-image" src="/images/icon.png"></image>
+  </view>
+
+  <scroll-view scroll-y class="scroll-container" bindscroll="onScroll" scroll-with-animation>
+    <!-- Court Images -->
+    <view class="swiper-container">
+      <swiper autoplay circular indicator-dots class="swiper">
+        <swiper-item wx:for="{{images}}" wx:key="*this">
+          <image class="swiper-image" src="{{item}}" mode="aspectFill" />
+        </swiper-item>
+      </swiper>
+    </view>
+
+    <!-- Contact Card -->
+    <view class="contact-info">
+      <view class="left-section">
+        <view class="location-info">
+          <text class="court-name">{{courtName}}</text>
+          <text class="distance">{{distance}} km</text>
+        </view>
+
+        <view class="nav-btn" bindtap="navigate">
+          <image src="/images/location.png" class="nav-icon" />
+          <text class="nav-text">{{venueAddress}}</text>
+        </view>
+      </view>
+
+      <view class="call-section" bindtap="makeCall" data-phone="{{phone}}">
+        <image src="/images/phone.png" class="phone-icon" />
+      </view>
+    </view>
+
+    <!-- 功能按钮 -->
+    <view class="features">
+      <view class="feature-item" bindtap="onBook">
+        <image src="/images/book.png" class="feature-icon" mode="aspectFit" />
+        <text class="feature-text">订场</text>
+      </view>
+      <view class="feature-item" bindtap="onMatch">
+        <image src="/images/match.png" class="feature-icon" mode="aspectFit" />
+        <text class="feature-text">约球</text>
+      </view>
+    </view>
+
+    <!-- 教练卡片滑动 -->
+    <view class="coach-info">
+      <text class="heading-text">场馆教练</text>
+      <scroll-view scroll-x="true" class="coach-scroll">
+        <block wx:for="{{coaches}}" wx:key="index">
+          <view class="coach-item">
+            <image src="{{item.img}}" class="coach-img" mode="widthFix"></image>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+
+
+
+
+    <!-- 5. CLUB INTRO  -->
+    <view class="intro-container">
+      <text class="heading-text">坦尼斯简介</text>
+      <view class="intro-text">
+        <text>深圳坦尼斯俱乐部位于凤凰山脚下，环境优美，空气清新。目前拥有3片5mm弹性丙烯酸标准网球场，适合网球训练和网红打卡。俱乐部教练团队来自西南大学，澳门大学，郑州大学等高校硕博生毕业生组成的网球训练团队，以年轻化、职业化为主，教龄超过5年，具备丰富的教学和比赛经验。俱乐部内设有完善配套设施包括淋浴间，休息室，储物柜，免费停车场，免费WIFI等设施。</text>
+      </view>
+    </view>
+
+    <view class="no-more-text">没有更多了～</view>
+
+  </scroll-view>
+</view>

@@ -1,0 +1,17 @@
+<view class="container">
+  <!-- 小程序大图标 -->
+  <image class="logo" src="/images/tennisgo.png" mode="aspectFit"></image>
+
+  <!-- 黑色背景白字的“手机号快捷登录”按钮 -->
+  <view class="login-btn" bindtap="onLogin">快捷登录/注册</view>
+
+  <!-- 黑色 radio 和协议说明 -->
+  <view class="agreement">
+    <radio checked="{{agreed}}" color="#000000" bindtap="toggleAgree"></radio>
+    <text> 我已阅读并同意</text>
+    <text class="link" bindtap="openPrivacy">《用户隐私政策》</text>
+    <text>和</text>
+    <text class="link" bindtap="openTerms">《用户协议》</text>
+  </view>
+</view>
+
