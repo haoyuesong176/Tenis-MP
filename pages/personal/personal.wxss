@@ -1,142 +1,189 @@
 /* index.wxss */
 .container {
-  margin-top: 180rpx;
-  /* padding: 20rpx; */
+    margin-top: 180rpx;
+    /* padding: 20rpx; */
 }
 
 .top-bar {
-  /* padding: 20rpx; */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgb(247, 247, 247); 
+    /* padding: 20rpx; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: rgb(247, 247, 247);  */
 }
 
 .balance {
-  display: flex;
-  /* margin-right: 40rpx; */
-  align-items: center;
-  justify-content: center;
-  color: rgb(0, 0, 0);
-  font-size: 30rpx;
-  font-weight: bold;
-  
-  /* border: 2rpx solid rgb(0, 0, 0);  */
-  height: 200rpx;
-  width: 250rpx;
-  /* border-radius: 28rpx;  */
-  background-color: rgb(255, 241, 241); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+    font-size: 30rpx;
+    /* height: 200rpx;
+  width: 250rpx; */
+    margin-right: 20rpx;
+}
+
+.right-corner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin-right: 20rpx;
 }
 
 .plus-icon {
-  display: flex;
-  width: 40rpx;
-  height: 40rpx;
-  margin-right: 15rpx;
+    display: flex;
+    width: 40rpx;
+    height: 40rpx;
+    margin-right: 15rpx;
 }
 
 .user-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 200rpx;
-  width: 440rpx;
-  /* padding: 30rpx; */
-  border-radius: 28rpx;
-  /* margin-bottom: 20rpx; */
-  /* background-color: rgb(247, 247, 247); */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200rpx;
+    width: 440rpx;
+    /* padding: 30rpx; */
+    border-radius: 28rpx;
+    /* margin-bottom: 20rpx; */
+    /* background-color: rgb(247, 247, 247); */
 }
 
 .avatar {
-  width: 120rpx;
-  height: 120rpx;
-  border-radius: 50%;
-  margin-right: 30rpx;
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%;
+    margin-right: 30rpx;
 }
 
 .user-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .name {
-  font-size: 36rpx;
-  color: #333;
-  font-weight: bold;
+    font-size: 36rpx;
+    color: #333;
+    font-weight: bold;
 }
 
 .level {
-  font-size: 26rpx;
-  color: #419aff;
-  font-weight: bolder;
+    font-size: 26rpx;
+    color: #419aff;
+    font-weight: bolder;
+}
+
+/* 功能服务 */
+
+.function {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 30rpx;
+}
+
+.function-title {
+    font-size: 30rpx;
+    /* font-weight: bolder; */
+    margin-left: 40rpx;
 }
 
 .function-grid {
-  margin-top: 30rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20rpx;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20rpx;
+    /* margin-inline: 200rpx; */
+    width: 100%;
 }
 
 .module {
-  flex: 1;
-  background-color: #fff;
-  border-radius: 12rpx;
-  padding: 30rpx;
-  text-align: center;
-  margin: 0 10rpx;
+    /* flex: 1; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 12rpx;
+    padding: 30rpx;
+    /* text-align: center; */
+    margin: 0 10rpx;
+    width: 50%;
 }
 
 .module-icon {
-  width: 60rpx;
-  height: 60rpx;
-  margin-bottom: 15rpx;
+    width: 60rpx;
+    height: 60rpx;
+    margin-bottom: 15rpx;
+}
+
+/* 日程模块 */
+
+.schedule-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 40rpx;
+}
+
+.schedule-title {
+    font-size: 30rpx;
+    margin-left: 40rpx;
 }
 
 .schedule {
-  margin-top: 40rpx;
+    margin-top: 0rpx;
+    /* height: 300rpx; */
 }
 
 .scroll-container {
-  white-space: nowrap;
-  overflow: hidden;
+    white-space: nowrap;
+    /* overflow: hidden; */
+    /* height: 300rpx; */
 }
 
 .schedule-items {
-  display: inline-block;
+    display: inline-block;
 }
 
 .schedule-item {
-  display: inline-block;
-  margin-right: 20rpx;
-  width: 280rpx;
-  background: #fff;
-  border-radius: 12rpx;
-  padding: 20rpx;
-  margin-bottom: 20rpx;
+    display: inline-block;
+    margin-right: 20rpx;
+    width: 280rpx;
+    background: #fff;
+    border-radius: 12rpx;
+    padding: 20rpx;
+    /* padding-block: 300rpx; */
+    margin-bottom: 20rpx;
 }
 
 .item-content {
-  padding: 20rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.1);
+    padding: 20rpx;
+    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
 }
 
 .time {
-  font-size: 28rpx;
-  color: #666;
+    font-size: 28rpx;
+    color: #666;
 }
 
 .title {
-  font-size: 32rpx;
-  color: #333;
-  margin: 10rpx 0;
+    font-size: 32rpx;
+    color: #333;
+    margin: 10rpx 0;
 }
 
 .location {
-  font-size: 26rpx;
-  color: #999;
+    font-size: 26rpx;
+    color: #999;
 }

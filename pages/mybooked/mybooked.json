@@ -1,0 +1,10 @@
+{
+    "component": true,
+    "styleIsolation": "apply-shared",
+    "usingComponents": {
+      "t-navbar": "tdesign-miniprogram/navbar/navbar"
+    },
+    "navigationStyle": "custom",
+    "enablePullDownRefresh": false,
+    "disableScroll": true
+  }
