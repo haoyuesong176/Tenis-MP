@@ -1,75 +1,78 @@
 <!--pages/personal/personal.wxml-->
 <view class="container">
 
-    <scroll-view scroll-y class="scroll-container" scroll-with-animation>
-        <!-- 1. User Info -->
-        <view class="top-bar">
-            <view class="user-info">
-                <image class="avatar" src="/images/avatar.png" mode="aspectFill"></image>
-                <view class="user-details">
-                    <text class="name">Matt Song</text>
-                    <text class="level">Level 2.0</text>
-                </view>
-            </view>
-            <view class="right-corner">
-                <view class="balance">
-                    <view>
-                        <image src="/images/wallet.bifold.png" class="plus-icon" />
-                    </view>
-                    <view>100.00</view>
-                </view>
-                <view>
-                    <image src="/images/qrcode.png" class="plus-icon" />
-                </view>
-            </view>
-
+  <scroll-view scroll-y class="scroll-container" scroll-with-animation>
+    <!-- 1. User Info -->
+    <view class="top-bar">
+      <view class="user-info">
+        <view class="avatar-container">
+          <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+            <image class="avatar" src="{{profileDict.icon}}" mode="aspectFill"></image>
+          </button>
         </view>
-
-        <!-- 2. Upcoming Activities -->
-        <view class="schedule-wrapper">
-            <view class="schedule-title">今天日程</view>
-            <view class="schedule">
-                <scroll-view class="scroll-container" scroll-x="true" scroll-with-animation>
-                    <view class="schedule-items">
-                        <view class="schedule-item" wx:for="{{scheduleItems}}" wx:key="id">
-                            <view class="item-content">
-                                <text class="time">{{item.time}}</text>
-                                <text class="title">{{item.title}}</text>
-                                <text class="location">{{item.location}}</text>
-                            </view>
-                        </view>
-                    </view>
-                </scroll-view>
-            </view>
+        <view class="user-details">
+          <text class="name">{{profileDict.nickname}}</text>
+          <text class="level">Level {{profileDict.level}}</text>
         </view>
-
-        <!-- 3. Function Module -->
-        <view class="function">
-            <view class="function-title">功能服务</view>
-            <view class="function-grid">
-                <view class="row">
-                    <view class="module" bindtap="handleBookingTap">
-                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
-                        <text>我的订场</text>
-                    </view>
-                    <view class="module" bindtap="handleTap">
-                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
-                        <text>发起中约球</text>
-                    </view>
-                </view>
-                <view class="row">
-                    <view class="module" bindtap="handleTap">
-                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
-                        <text>匹配成功的约球</text>
-                    </view>
-                    <view class="module" bindtap="handleTap">
-                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
-                        <text>我的课程</text>
-                    </view>
-                </view>
-            </view>
+      </view>
+      <view class="right-corner">
+        <view class="balance">
+          <view>
+            <image src="/images/wallet.bifold.png" class="plus-icon" />
+          </view>
+          <view>{{profileDict.balance}}</view>
         </view>
+        <view>
+          <image src="/images/qrcode.png" class="plus-icon" />
+        </view>
+      </view>
+    </view>
 
-    </scroll-view>
+    <!-- 2. Upcoming Activities -->
+    <view class="schedule-wrapper">
+      <view class="schedule-title">今天日程</view>
+      <view class="schedule">
+        <scroll-view class="scroll-container" scroll-x="true" scroll-with-animation>
+          <view class="schedule-items">
+            <view class="schedule-item" wx:for="{{scheduleItems}}" wx:key="id">
+              <view class="item-content">
+                <text class="time">{{item.time}}</text>
+                <text class="title">{{item.title}}</text>
+                <text class="location">{{item.location}}</text>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+
+    <!-- 3. Function Module -->
+    <view class="function">
+      <view class="function-title">功能服务</view>
+      <view class="function-grid">
+        <view class="row">
+          <view class="module" bindtap="handleBookingTap">
+            <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+            <text>我的订场</text>
+          </view>
+          <view class="module" bindtap="handleTap">
+            <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+            <text>发起中约球</text>
+          </view>
+        </view>
+        <view class="row">
+          <view class="module" bindtap="handleTap">
+            <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+            <text>匹配成功的约球</text>
+          </view>
+          <view class="module" bindtap="handleTap">
+            <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+            <text>我的课程</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </scroll-view>
 
 </view>
