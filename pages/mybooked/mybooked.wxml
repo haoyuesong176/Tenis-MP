@@ -1,17 +1,23 @@
 <view class="container">
 
     <view class="navbar">
-        <t-navbar t-class-placeholder="t-navbar-placeholder" t-class-content="t-navbar-content" class="navbar" title="我的订场" left-arrow bind:go-back="handleBack" />
+        <t-navbar t-class-placeholder="t-navbar-placeholder" t-class-content="t-navbar-content" title="我的订场" left-arrow bind:go-back="handleBack" />
     </view>
 
-    <t-tabs animation="{{ { duration: 0.6 } }}" defaultValue="{{0}}" bind:change="onTabsChange" bind:click="onTabsClick" t-class="custom-tabs" t-class-content="custom-panel">
+    <t-tabs animation="{{ { duration: 0.3 } }}" defaultValue="{{0}}" bind:change="onTabsChange" t-class="custom-tabs" t-class-content="custom-panel">
         <t-tab-panel label="未开始" value="0">
             <view class="custom-panel__content">
-                <scroll-view class="scroll-area" scroll-y="true">
+                <scroll-view class="scroll-area" scroll-y="true" enable-flex>
                     <view class="block-container">
                         <view class="block" wx:for="{{blocks}}" wx:key="index">
-                            Booking Info
+                            <!-- Booking Info -->
+                            <view class="block-date">{{item.date}}</view>
+                            <view class="block-time">{{item.time}}</view>
+                            <view class="block-field">{{item.field_name}}</view>
+                            <view class="block-price">{{item.price}}</view>
+                            <view class="block-unbook-btn" bind:tap="handleUnbook" data-record-id="{{item.id}}">退订</view>
                         </view>
+                        <view class="pad"></view>
                     </view>
                 </scroll-view>
 

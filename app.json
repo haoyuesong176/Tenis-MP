@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/personal/personal",
         "pages/login/login",
+        "pages/personal/personal",
         "pages/tennis/tennis",
         "pages/book/book",
         "pages/match/match",

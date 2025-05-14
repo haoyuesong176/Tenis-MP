@@ -1,6 +1,7 @@
 // pages/personal/personal.js
 Page({
     data: {
+        profileDict: {},
         scheduleItems: [{
                 id: 1,
                 time: '09:00',
@@ -28,6 +29,10 @@ Page({
         ]
     },
 
+    onLoad() {
+        this.getUserProfile();
+    },
+
     handleBookingTap() {
         wx.navigateTo({
             url: '/pages/mybooked/mybooked',
@@ -36,5 +41,35 @@ Page({
 
     handleTap() {
         console.log('模块点击事件');
-    }
+    },
+
+    getUserProfile(callback) {
+
+        const url = `http://127.0.0.1:8000/course/api/user-profile/`;
+        const that = this;
+        const token = wx.getStorageSync('token');
+
+        wx.request({
+            url: url,
+            method: 'GET',
+            header: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            success(res) {
+                const data = res.data;
+                that.setData({
+                    profileDict: data
+                }, () => {
+                    console.log('User Profile fetched:', that.data.profileDict);
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
+                });
+            },
+            fail(err) {
+                console.error('Failed to fetch user profile:', err);
+            }
+        });
+    },
 });

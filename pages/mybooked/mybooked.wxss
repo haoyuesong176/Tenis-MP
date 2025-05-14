@@ -7,57 +7,85 @@
     background-color: aqua;
 }
 
+
 .custom-tabs {
-    margin-bottom: 32rpx;
-    background-color: rgb(109, 212, 77);
-    margin-top: 0rpx;
-    padding-top: 0rpx;
-    /* flex: 1; */
+    background-color: rgb(112, 211, 82);
+    --td-tab-item-active-color: rgb(0, 0, 0);
+    --td-tab-track-color: black;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .custom-panel {
     color: var(--td-text-color-primary);
-    background-color: rgb(77, 108, 212);
 }
 
 .custom-panel__content {
-    height: 100%;
     font-size: 28rpx;
     color: var(--td-text-color-placeholder);
-    padding: 40rpx;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: #000;
+    background-color: rgb(175, 38, 38);
+    height: 90vh;
 }
 
 .scroll-area {
     display: flex;
     flex-direction: column;
-    height: 50rpx;
     width: 100%;
-    height: 100%;
+    background-color: yellow;
 }
 
 .block-container {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: flex-start;
     align-content: flex-start;
-    padding-top: 12rpx;
+    /* padding-top: 12rpx; */
     box-sizing: border-box;
+    background-color: #f0f0f0;
+    /* height: 2000rpx; */
 }
 
 .block {
+    height: 240rpx;
+    width: 100%;
+    margin-bottom: 20rpx;
+    background-color: aquamarine;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 49%;
-    background-color: #f0f0f0;
-    color: #000;
-    padding: 20rpx;
-    margin-bottom: 15rpx;
-    box-sizing: border-box;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.pad {
+    background-color: white;
+    height: 10vh;
+}
+
+.block-date {
+    font-size: 30rpx;
+}
+
+.block-time {
+    font-size: 30rpx;
+}
+
+.block-field {
+    font-size: 30rpx;
+}
+
+.block-price {
+    font-size: 30rpx;
+}
+
+.block-unbook-btn {
+    padding-inline: 10rpx;
+    padding-block: 10rpx;
+    width: 60rpx;
+    color: white;
+    background-color: black;
 }
