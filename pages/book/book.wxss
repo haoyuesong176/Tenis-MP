@@ -218,7 +218,7 @@
 }
 
 .price {
-  font-size: 36rpx;
+  font-size: 35rpx;
   font-weight: bold;
   color: #e60012; /* 红色 */
 }
@@ -235,16 +235,16 @@
   justify-content: center;
   background-color: #000000;
   color: #fff;
-  font-size: 32rpx;
+  font-size: 28rpx;
   /* padding: 28rpx 160rpx; */
   /* border-radius: 16rpx; */
   font-weight: 500;
   margin-right: 40rpx;
   height: 100rpx;
-  width: 420rpx;
+  width: 470rpx;
 }
 
-.submit-button-view-disable {
+/* .submit-button-view-disable {
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -252,14 +252,14 @@
   background-color: #ffffff;
   border: 1px solid #cccccc; 
   color: #cccccc;
-  font-size: 32rpx;
+  font-size: 28rpx;
   /* padding: 28rpx 160rpx; */
   /* border-radius: 16rpx; */
-  font-weight: 500;
+  /* font-weight: 500;
   margin-right: 40rpx;
   height: 100rpx;
-  width: 420rpx;
-}
+  width: 470rpx;
+} */ 
 
 
 /* POPUP  */

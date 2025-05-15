@@ -58,7 +58,7 @@
     </view>
 
     <!-- 右侧：下单按钮 -->
-    <view class="{{onBooking ? 'submit-button-view' : 'submit-button-view-disable'}}" bindtap="submitOrder">
+    <view class="submit-button-view" bindtap="submitOrder">
       <text>立即预订</text>
     </view>
   </view>

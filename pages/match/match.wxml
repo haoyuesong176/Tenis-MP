@@ -48,13 +48,15 @@
   <!-- 底部固定部分 -->
   <view class="bottom-bar">
 
-    <view class="{{onInviting ? 'submit-button-view1' : 'submit-button-view1-disable'}}" bindtap="submitOrder1">
+    <view class="switch-button">
+      <image class="switch-icon" src="/images/arrow.left.arrow.right.png"></image>
+      <text class="switch-text">接受邀约</text>
+    </view>
+
+    <view class="submit-button-view" bindtap="submitOrder">
       <text>发起约球</text>
     </view>
 
-    <view class="{{onAccepting ? 'submit-button-view2' : 'submit-button-view2-disable'}}" bindtap="submitOrder2">
-      <text>接受邀约</text>
-    </view>
   </view>
 
   <!-- 下单 POPUP -->

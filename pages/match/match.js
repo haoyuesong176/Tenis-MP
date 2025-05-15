@@ -387,8 +387,7 @@ Page({
     ],
     totalPrice: '0.00',
     selectedHours: 0,
-    onInviting: false,
-    onAccepting: false,
+    onConfirming: false,
     level: '0.0',
     fieldDict: {} 
   },
@@ -476,14 +475,14 @@ Page({
     // 更新 selectedHours
     const selectedHours = totalHours.toFixed(1);
 
-    let onInviting = selectedCount > 0;
+    let onConfirming = selectedCount > 0;
 
     // 更新 state
     this.setData({
       timeSlots,
       totalPrice,
       selectedHours,
-      onInviting
+      onConfirming
     });
   },
 
@@ -494,14 +493,14 @@ Page({
   },
 
 
-  submitOrder1() {
-    if (!this.data.onInviting) return; 
-    this.updateSelectedBlocks() 
-    this.setData({ visible: true });
-  },
-
-  submitOrder2() {
-    if (!this.data.onAccepting) return; 
+  submitOrder() {
+    if (!this.data.onConfirming) {
+      wx.showToast({
+        title: '请先选择场次',
+        icon: 'none'
+      });
+      return;
+    }
     this.updateSelectedBlocks() 
     this.setData({ visible: true });
   },
