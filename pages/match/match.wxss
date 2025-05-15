@@ -370,11 +370,6 @@
   width: 500rpx;
 }
 
-.level-slider {
-  /* --td-slider-capsule-bar-color: white; */
-  --td-slider-active-color: black;
-  --td-slider-capsule-bar-width: 300rpx;
-}
 
 .popup-date-info {
   display: flex;

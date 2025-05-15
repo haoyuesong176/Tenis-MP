@@ -12,7 +12,7 @@
       <view class="date-button-container">
         <view wx:for="{{dates}}" wx:key="index" class="date-button {{selectedDateIndex === index ? 'active' : ''}}" data-index="{{index}}" bindtap="selectDate">
           <view class="date-label">{{item.label}}</view>
-          <view class="date-value">{{item.date}}</view>
+          <!-- <view class="date-value">{{item.date}}</view> -->
         </view>
       </view>
     </scroll-view>
@@ -32,11 +32,12 @@
       <!-- 可竖直滚动的时间表 -->
       <scroll-view scroll-y="true" class="schedule-scroll">
         <view class="schedule">
-          <block wx:for="{{timeSlots}}" wx:key="index">
+          <block wx:for="{{timeSlots}}" wx:key="time" wx:for-item="time">
             <view class="time-row">
-              <text class="time-cell">{{item.time}}</text>
-              <block wx:for="{{fields}}" wx:key="index" wx:for-item="field">
-                <view class="slot {{ item.selected[field] ? 'selected' : (item.booked[field] ? 'booked' : 'available') }}" data-time="{{item.time}}" data-field="{{field}}" bindtap="selectSlot" />
+              <text class="time-cell">{{time}}</text>
+              <block wx:for="{{fields}}" wx:key="field" wx:for-item="field">
+                <view class="slot {{ fieldDict[time][field].status == 1 ? 'available' : (fieldDict[time][field].status == 0 ? 'selected' : 'booked') }}" data-time="{{time}}" data-field="{{field}}" bindtap="selectSlot">
+                </view>
               </block>
             </view>
           </block>
@@ -66,24 +67,27 @@
       <view class="popup-topbar">
         <view class="popup-basic-info">
           <view class="popup-date-info">
-            <view class="popup-date">2025.05.03</view>
-            <view class="popup-week">星期六</view>
+            <view class="popup-date">{{dates[selectedDateIndex].date}}</view>
+            <view class="popup-week">{{dates[selectedDateIndex].label}}</view>
           </view>
           <view class="popup-price">¥{{totalPrice}}</view>
         </view>
 
         <view class="popup-optional-fee">
           <view class="radio-title">场地费结算方式</view>
-          <t-radio-group default-value="0" borderless t-class="box">
-            <t-radio class='radio-item' icon="dot" block="{{false}}" label="平摊制" value="0" />
-            <t-radio class='radio-item' icon="dot" block="{{false}}" label="个人承担" value="1" />
+          <t-radio-group default-value="1" borderless t-class="box" bind:change="onRadioChange">
+            <t-radio class='radio-item' icon="dot" block="{{false}}" label="平摊制" value="1" />
+            <t-radio class='radio-item' icon="dot" block="{{false}}" label="个人承担" value="2" />
           </t-radio-group>
         </view>
 
         <view class="popup-optional-level">
           <view class="slider-title">级别要求: {{level}}</view>
+          <!-- <view class="wrapper">
+            <t-slider class="level-slider" step="0.5" bind:change="handleSilderChange" />
+          </view> -->
           <view class="wrapper">
-            <t-slider class="level-slider" defaultValue="{{0}}" step="{{10}}" bind:change="handleSilderChange" />
+              <slider bindchange="slider2change" min="1" max="5" step="0.5" selected-color="black" block-size="20" />
           </view>
         </view>
 
@@ -107,7 +111,7 @@
 
 
       <view class="popup-bottom-bar">
-        <view class="popup-submit-button-view" bindtap="comfirmOrder">
+        <view class="popup-submit-button-view" bindtap="confirmOrder">
           <text>确认</text>
         </view>
       </view>
