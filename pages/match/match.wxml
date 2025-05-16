@@ -1,171 +1,155 @@
 <view class="container">
-  <!-- 顶部固定部分 -->
-  <view class="fixed-top">
-    <!-- 自定义导航栏 -->
-    <view class="nav-bar">
-      <image src="/images/chevron.left.png" class="back-button" bindtap="goBack" mode="aspectFit" />
-      <view class="title">{{ mode ? '约球' : '邀约' }}</view>
-    </view>
-
-    <!-- 日期选择 -->
-    <scroll-view scroll-x="true" class="date-scroll-view" show-scrollbar="false">
-      <view class="date-button-container">
-        <view wx:for="{{dates}}" wx:key="index" class="date-button {{selectedDateIndex === index ? 'active' : ''}}" data-index="{{index}}" bindtap="selectDate">
-          <view class="date-label">{{item.label}}</view>
-          <!-- <view class="date-value">{{item.date}}</view> -->
+    <!-- 顶部固定部分 -->
+    <view class="fixed-top">
+        <!-- 自定义导航栏 -->
+        <view class="nav-bar">
+            <image src="/images/chevron.left.png" class="back-button" bindtap="goBack" mode="aspectFit" />
+            <view class="title">约球</view>
         </view>
-      </view>
-    </scroll-view>
-  </view>
 
-  <!-- 中间可滚动内容部分 -->
-  <view class="scrollable-content">
-    <view class="schedule-wrapper">
-      <!-- 顶部列标题 -->
-      <view class="header-row">
-        <text class="header-cell time-header"></text>
-        <block wx:for="{{fields}}" wx:key="index">
-          <text class="header-cell">{{item}}</text>
-        </block>
-      </view>
-
-      <!-- 可竖直滚动的时间表 -->
-      <scroll-view scroll-y="true" class="schedule-scroll">
-        <view class="schedule">
-          <block wx:for="{{timeSlots}}" wx:key="time" wx:for-item="time">
-            <view class="time-row">
-              <text class="time-cell">{{time}}</text>
-              <block wx:for="{{fields}}" wx:key="field" wx:for-item="field">
-                <view class="slot {{ mode ? (fieldDict[time][field].status == 1 ? 'available' : (fieldDict[time][field].status == 0 ? 'selected' : 'booked')) : (fieldDict[time][field].status == 1 ? 'available' : ((fieldDict[time][field].status == 2 || fieldDict[time][field].status == 4) ? 'booked' : (fieldDict[time][field].status == 3 ? 'matching' : 'selected'))) }}" data-time="{{time}}" data-field="{{field}}" bindtap="{{mode ? 'selectMatchingSlot' : 'selectMatchedSlot'}}"></view>
-              </block>
+        <!-- 日期选择 -->
+        <scroll-view scroll-x="true" class="date-scroll-view" show-scrollbar="false">
+            <view class="date-button-container">
+                <view wx:for="{{dates}}" wx:key="index" class="date-button {{selectedDateIndex === index ? 'active' : ''}}" data-index="{{index}}" bindtap="selectDate">
+                    <view class="date-label">{{item.label}}</view>
+                    <!-- <view class="date-value">{{item.date}}</view> -->
+                </view>
             </view>
-          </block>
-        </view>
-      </scroll-view>
-    </view>
-  </view>
-
-  <!-- 底部固定部分 -->
-  <view class="bottom-bar">
-
-    <view class="switch-button" bind:tap="handleModeSwitch">
-      <image class="switch-icon" src="/images/arrow.left.arrow.right.png"></image>
-      <text class="switch-text">{{ mode ? '接受邀约' : '发起约球'}}</text>
+        </scroll-view>
     </view>
 
-    <view class="submit-button-view" bindtap="submitOrder">
-      <text>{{ mode ? '发起约球' : '接受邀约' }}</text>
-    </view>
-
-  </view>
-
-  <!-- 下单 POPUP -->
-  <t-popup visible="{{visible}}" bind:visible-change="onVisibleChange" placement="bottom" class="popup">
-    <view class="popup-block">
-      <!-- 固定顶部栏 -->
-      <view class="popup-topbar">
-        <view class="popup-basic-info">
-          <view class="popup-date-info">
-            <view class="popup-date">{{dates[selectedDateIndex].date}}</view>
-            <view class="popup-week">{{dates[selectedDateIndex].label}}</view>
-          </view>
-          <view class="popup-price">¥{{totalPrice}}</view>
-        </view>
-
-        <view class="popup-optional-fee">
-          <view class="radio-title">场地费结算方式</view>
-          <t-radio-group default-value="1" borderless t-class="box" bind:change="onRadioChange">
-            <t-radio class='radio-item' icon="dot" block="{{false}}" label="平摊制" value="1" />
-            <t-radio class='radio-item' icon="dot" block="{{false}}" label="个人承担" value="2" />
-          </t-radio-group>
-        </view>
-
-        <view class="popup-optional-level">
-          <view class="slider-title">级别要求: {{level}}</view>
-          <view class="wrapper">
-              <slider bindchange="slider2change" min="1" max="5" step="0.5" selected-color="black" block-size="20" />
-          </view>
-        </view>
-
-
-      </view>
-
-
-      <!-- 中间滑动区域 -->
-      <scroll-view class="scroll-area" scroll-y="true">
-        <view class="block-container">
-          <!-- <view class="block" wx:for="{{blocks}}" wx:key="index"> -->
-          <view class="block" wx:for="{{blocks}}" wx:key="uniqueKey">
-            <view class="block-left">
-              <view class="block-name">{{item.name}}</view>
-              <view class="block-time">{{item.time}}</view>
+    <!-- 中间可滚动内容部分 -->
+    <view class="scrollable-content">
+        <view class="schedule-wrapper">
+            <!-- 顶部列标题 -->
+            <view class="header-row">
+                <text class="header-cell time-header"></text>
+                <block wx:for="{{fields}}" wx:key="index">
+                    <text class="header-cell">{{item}}</text>
+                </block>
             </view>
-            <view class="block-price">¥{{item.price}}</view>
-          </view>
-        </view>
-      </scroll-view>
 
-
-      <view class="popup-bottom-bar">
-        <view class="popup-submit-button-view" bindtap="confirmOrder">
-          <text>确认</text>
+            <!-- 可竖直滚动的时间表 -->
+            <scroll-view scroll-y="true" class="schedule-scroll">
+                <view class="schedule">
+                    <block wx:for="{{timeSlots}}" wx:key="time" wx:for-item="time">
+                        <view class="time-row">
+                            <text class="time-cell">{{time}}</text>
+                            <block wx:for="{{fields}}" wx:key="field" wx:for-item="field">
+                                <view class="slot {{ mode ? (fieldDict[time][field].status == 1 ? 'available' : (fieldDict[time][field].status == 0 ? 'selected' : 'booked')) : (fieldDict[time][field].status == 1 ? 'available' : ((fieldDict[time][field].status == 2 || fieldDict[time][field].status == 4) ? 'booked' : (fieldDict[time][field].status == 3 ? 'matching' : 'selected'))) }}" data-time="{{time}}" data-field="{{field}}" bindtap="{{mode ? 'selectMatchingSlot' : 'selectMatchedSlot'}}"></view>
+                            </block>
+                        </view>
+                    </block>
+                </view>
+            </scroll-view>
         </view>
-      </view>
     </view>
-  </t-popup>
 
-  <t-popup visible="{{matchedVisible}}" bind:visible-change="onMatchedVisibleChange" placement="center" class="popup">
-    <view class="popup-block">
-      <!-- 固定顶部栏 -->
-      <view class="popup-topbar">
-        <view class="popup-basic-info">
-          <view class="popup-date-info">
-            <view class="popup-date">{{dates[selectedDateIndex].date}}</view>
-            <view class="popup-week">{{dates[selectedDateIndex].label}}</view>
-          </view>
-          <view class="popup-price">¥{{totalPrice}}</view>
+    <!-- 底部固定部分 -->
+    <view class="bottom-bar">
+
+        <view class="switch-button" bind:tap="handleModeSwitch">
+            <image class="switch-icon" src="/images/arrow.left.arrow.right.png"></image>
+            <text class="switch-text">{{ mode ? '接受邀约' : '发起约球'}}</text>
         </view>
 
-        <view class="popup-optional-fee">
-          <view class="radio-title">场地费结算方式</view>
-          <t-radio-group default-value="1" borderless t-class="box" bind:change="onRadioChange">
-            <t-radio class='radio-item' icon="dot" block="{{false}}" label="平摊制" value="1" />
-            <t-radio class='radio-item' icon="dot" block="{{false}}" label="个人承担" value="2" />
-          </t-radio-group>
+        <view class="submit-button-view" bindtap="submitOrder">
+            <text>{{ mode ? '发起约球' : '接受邀约' }}</text>
         </view>
 
-        <view class="popup-optional-level">
-          <view class="slider-title">级别要求: {{level}}</view>
-          <view class="wrapper">
-              <slider bindchange="slider2change" min="1" max="5" step="0.5" selected-color="black" block-size="20" />
-          </view>
-        </view>
+    </view>
+
+    <!-- 下单 POPUP -->
+    <t-popup visible="{{visible}}" bind:visible-change="onVisibleChange" placement="bottom" class="popup">
+        <view class="popup-block">
+            <!-- 固定顶部栏 -->
+            <view class="popup-topbar">
+                <view class="popup-basic-info">
+                    <view class="popup-date-info">
+                        <view class="popup-date">{{dates[selectedDateIndex].date}}</view>
+                        <view class="popup-week">{{dates[selectedDateIndex].label}}</view>
+                    </view>
+                    <view class="popup-price">¥{{totalPrice}}</view>
+                </view>
+
+                <view class="popup-optional-fee">
+                    <view class="radio-title">场地费结算方式</view>
+                    <t-radio-group default-value="1" borderless t-class="box" bind:change="onRadioChange">
+                        <t-radio class='radio-item' icon="dot" block="{{false}}" label="平摊制" value="1" />
+                        <t-radio class='radio-item' icon="dot" block="{{false}}" label="个人承担" value="2" />
+                    </t-radio-group>
+                </view>
+
+                <view class="popup-optional-level">
+                    <view class="slider-title">级别要求: {{level}}</view>
+                    <view class="wrapper">
+                        <slider bindchange="slider2change" min="1" max="5" step="0.5" selected-color="black" block-size="20" />
+                    </view>
+                </view>
 
 
-      </view>
-
-
-      <!-- 中间滑动区域 -->
-      <scroll-view class="scroll-area" scroll-y="true">
-        <view class="block-container">
-          <!-- <view class="block" wx:for="{{blocks}}" wx:key="index"> -->
-          <view class="block" wx:for="{{blocks}}" wx:key="uniqueKey">
-            <view class="block-left">
-              <view class="block-name">{{item.name}}</view>
-              <view class="block-time">{{item.time}}</view>
             </view>
-            <view class="block-price">¥{{item.price}}</view>
-          </view>
-        </view>
-      </scroll-view>
 
 
-      <view class="popup-bottom-bar">
-        <view class="popup-submit-button-view" bindtap="confirmOrder">
-          <text>确认</text>
+            <!-- 中间滑动区域 -->
+            <scroll-view class="scroll-area" scroll-y="true">
+                <view class="block-container">
+                    <!-- <view class="block" wx:for="{{blocks}}" wx:key="index"> -->
+                    <view class="block" wx:for="{{blocks}}" wx:key="uniqueKey">
+                        <view class="block-left">
+                            <view class="block-name">{{item.name}}</view>
+                            <view class="block-time">{{item.time}}</view>
+                        </view>
+                        <view class="block-price">¥{{item.price}}</view>
+                    </view>
+                </view>
+            </scroll-view>
+
+
+            <view class="popup-bottom-bar">
+                <view class="popup-submit-button-view" bindtap="confirmOrder">
+                    <text>确认</text>
+                </view>
+            </view>
         </view>
-      </view>
-    </view>
-  </t-popup>
+    </t-popup>
+
+    <t-popup visible="{{matchedVisible}}" bind:visible-change="onMatchedVisibleChange" placement="center" class="popup-center">
+        <view class="popup-center-block">
+
+            <view class="popup-center-topbar">
+                <view class="matched-user-info">
+                    <view class="avatar">
+                        <image class="round-image" src="{{matchedUserInfo.icon}}"></image>
+                    </view>
+                    <view class="avatar-right-part">
+                        <view class="nickname">{{matchedUserInfo.nickname}}</view>
+                        <view class="level">Level {{matchedUserInfo.level}}</view>
+                    </view>
+                </view>
+                <view class="matched-payment-info">
+                    <view>$100.00</view>
+                </view>
+            </view>
+
+            <view class="popup-center-midbar-wrapper">
+                <view class="popup-center-midbar">
+                    <view class="matched-date-info">
+                        <view class="matched-date">{{matchedUserInfo.date}}</view>
+                        <view class="matched-week">{{matchedUserInfo.week}}</view>
+                    </view>
+                    <view class="matched-time-field-info">
+                        <view class="matched-time">{{matchedUserInfo.duration}}</view>
+                        <view class="matched-field">{{matchedUserInfo.field}}</view>
+                    </view>
+                </view>
+            </view>
+
+            <view class="popup-center-bottombar" bind:tap="handleMatchedSelected">
+                <view>{{matchedUserInfo.status === 0 ? '取消' : '选择'}}</view>
+            </view>
+
+        </view>
+    </t-popup>
 
 </view>
