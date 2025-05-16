@@ -170,6 +170,10 @@
   background-color: rgb(133, 193, 221);
 }
 
+.matching {
+  background-color: rgb(227, 180, 231);
+}
+
 .time-header {
   width: 40px;
   /* background: #eee; */

@@ -4,7 +4,7 @@
     <!-- 自定义导航栏 -->
     <view class="nav-bar">
       <image src="/images/chevron.left.png" class="back-button" bindtap="goBack" mode="aspectFit" />
-      <view class="title">约球</view>
+      <view class="title">{{ mode ? '约球' : '邀约' }}</view>
     </view>
 
     <!-- 日期选择 -->
@@ -36,8 +36,7 @@
             <view class="time-row">
               <text class="time-cell">{{time}}</text>
               <block wx:for="{{fields}}" wx:key="field" wx:for-item="field">
-                <view class="slot {{ fieldDict[time][field].status == 1 ? 'available' : (fieldDict[time][field].status == 0 ? 'selected' : 'booked') }}" data-time="{{time}}" data-field="{{field}}" bindtap="selectSlot">
-                </view>
+                <view class="slot {{ mode ? (fieldDict[time][field].status == 1 ? 'available' : (fieldDict[time][field].status == 0 ? 'selected' : 'booked')) : (fieldDict[time][field].status == 1 ? 'available' : ((fieldDict[time][field].status == 2 || fieldDict[time][field].status == 4) ? 'booked' : (fieldDict[time][field].status == 3 ? 'matching' : 'selected'))) }}" data-time="{{time}}" data-field="{{field}}" bindtap="{{mode ? 'selectMatchingSlot' : 'selectMatchedSlot'}}"></view>
               </block>
             </view>
           </block>
@@ -49,13 +48,13 @@
   <!-- 底部固定部分 -->
   <view class="bottom-bar">
 
-    <view class="switch-button">
+    <view class="switch-button" bind:tap="handleModeSwitch">
       <image class="switch-icon" src="/images/arrow.left.arrow.right.png"></image>
-      <text class="switch-text">接受邀约</text>
+      <text class="switch-text">{{ mode ? '接受邀约' : '发起约球'}}</text>
     </view>
 
     <view class="submit-button-view" bindtap="submitOrder">
-      <text>发起约球</text>
+      <text>{{ mode ? '发起约球' : '接受邀约' }}</text>
     </view>
 
   </view>
@@ -83,9 +82,60 @@
 
         <view class="popup-optional-level">
           <view class="slider-title">级别要求: {{level}}</view>
-          <!-- <view class="wrapper">
-            <t-slider class="level-slider" step="0.5" bind:change="handleSilderChange" />
-          </view> -->
+          <view class="wrapper">
+              <slider bindchange="slider2change" min="1" max="5" step="0.5" selected-color="black" block-size="20" />
+          </view>
+        </view>
+
+
+      </view>
+
+
+      <!-- 中间滑动区域 -->
+      <scroll-view class="scroll-area" scroll-y="true">
+        <view class="block-container">
+          <!-- <view class="block" wx:for="{{blocks}}" wx:key="index"> -->
+          <view class="block" wx:for="{{blocks}}" wx:key="uniqueKey">
+            <view class="block-left">
+              <view class="block-name">{{item.name}}</view>
+              <view class="block-time">{{item.time}}</view>
+            </view>
+            <view class="block-price">¥{{item.price}}</view>
+          </view>
+        </view>
+      </scroll-view>
+
+
+      <view class="popup-bottom-bar">
+        <view class="popup-submit-button-view" bindtap="confirmOrder">
+          <text>确认</text>
+        </view>
+      </view>
+    </view>
+  </t-popup>
+
+  <t-popup visible="{{matchedVisible}}" bind:visible-change="onMatchedVisibleChange" placement="center" class="popup">
+    <view class="popup-block">
+      <!-- 固定顶部栏 -->
+      <view class="popup-topbar">
+        <view class="popup-basic-info">
+          <view class="popup-date-info">
+            <view class="popup-date">{{dates[selectedDateIndex].date}}</view>
+            <view class="popup-week">{{dates[selectedDateIndex].label}}</view>
+          </view>
+          <view class="popup-price">¥{{totalPrice}}</view>
+        </view>
+
+        <view class="popup-optional-fee">
+          <view class="radio-title">场地费结算方式</view>
+          <t-radio-group default-value="1" borderless t-class="box" bind:change="onRadioChange">
+            <t-radio class='radio-item' icon="dot" block="{{false}}" label="平摊制" value="1" />
+            <t-radio class='radio-item' icon="dot" block="{{false}}" label="个人承担" value="2" />
+          </t-radio-group>
+        </view>
+
+        <view class="popup-optional-level">
+          <view class="slider-title">级别要求: {{level}}</view>
           <view class="wrapper">
               <slider bindchange="slider2change" min="1" max="5" step="0.5" selected-color="black" block-size="20" />
           </view>
