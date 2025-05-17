@@ -1,7 +1,10 @@
 Page({
     data: {
+        ip_addr: "http://172.17.13.136:8000",
         mode: true,
         blocks: [],
+        matchedBlockIds: [],
+        matchedBlocks: {},
         dates: [],
         selectedDateIndex: 0,
         fields: [],
@@ -76,7 +79,8 @@ Page({
     updateDate(selectedDate, callback) {
         console.log('The Selected Date:', selectedDate);
 
-        const url = `http://127.0.0.1:8000/course/api/field-data/?date=${selectedDate}`;
+        // const url = `http://127.0.0.1:8000/course/api/field-data/?date=${selectedDate}`;
+        const url = `${this.data.ip_addr}/course/api/field-data/?date=${selectedDate}`;
         const that = this;
 
         // 从本地缓存获取 access_token（你在登录成功时应该存过它）
@@ -114,9 +118,10 @@ Page({
         const id = this.data.fieldDict[time][field].id;
         const timeEnd = this.getNextHalfHour(time);
 
-        if (status === 3 || status == 0) {
+        if (status === 3 || status === 0) {
             wx.request({
-                url: `http://127.0.0.1:8000/course/fields/${id}/matching-user/`,
+                // url: `http://127.0.0.1:8000/course/fields/${id}/matching-user/`,
+                url: `${this.data.ip_addr}/course/fields/${id}/matching-user/`,
                 method: 'GET',
                 header: {
                     'Authorization': 'Bearer ' + wx.getStorageSync('token'),
@@ -126,21 +131,30 @@ Page({
                     if (res.statusCode === 200 && res.data) {
                         const userInfo = res.data;
 
-                        // 更新 data 中的 matchedUserInfo
+                        const matchedUserInfo = {
+                            nickname: userInfo.nickname,
+                            level: userInfo.level,
+                            icon: userInfo.icon,
+                            date: this.data.dates[this.data.selectedDateIndex].date,
+                            week: this.data.dates[this.data.selectedDateIndex].label,
+                            duration: `${time} - ${timeEnd}`,
+                            time: time,
+                            field: field,
+                            status: status,
+                        };
+
+                        const newMatchedBlocks = {
+                            ...this.data.matchedBlocks
+                        };
+                        newMatchedBlocks[id] = matchedUserInfo;
+
                         this.setData({
-                            matchedUserInfo: {
-                                nickname: userInfo.nickname,
-                                level: userInfo.level,
-                                icon: userInfo.icon,
-                                date: this.data.dates[this.data.selectedDateIndex].date,
-                                week: this.data.dates[this.data.selectedDateIndex].label,
-                                duration: `${time} - ${timeEnd}`,
-                                time: time,
-                                field: field,
-                                status: status,
-                            },
-                            matchedVisible: true
+                            matchedUserInfo,
+                            matchedVisible: true,
+                            matchedBlocks: newMatchedBlocks
                         });
+
+                        // console.log(this.data.matchedBlocks);
                     } else {
                         wx.showToast({
                             title: '获取用户信息失败',
@@ -157,6 +171,7 @@ Page({
             });
         }
     },
+
 
     selectMatchingSlot(e) {
         const {
@@ -215,6 +230,31 @@ Page({
         });
     },
 
+    onMatchedConfirmVisibleChange(e) {
+        this.setData({
+            matchedConfirmVisible: e.detail.visible,
+        });
+    },
+
+    updateMatchedSelectedBlocks() {
+        const fieldDict = this.data.fieldDict;
+        const selectedBlockIds = [];
+
+        for (const timeStart in fieldDict) {
+            const fieldsObj = fieldDict[timeStart];
+
+            for (const field in fieldsObj) {
+                if (fieldsObj[field].status === 0) {
+                    selectedBlockIds.push(fieldsObj[field].id);
+                }
+            }
+        }
+
+        this.setData({
+            matchedBlockIds: selectedBlockIds
+        });
+    },
+
     submitOrder() {
         if (!this.data.onBooking) {
             wx.showToast({
@@ -229,7 +269,10 @@ Page({
                 visible: true
             });
         } else {
-            console.log("not implemented!");
+            this.updateMatchedSelectedBlocks();
+            this.setData({
+                matchedConfirmVisible: true
+            });
         }
     },
 
@@ -252,7 +295,8 @@ Page({
 
         // 发送请求
         wx.request({
-            url: 'http://127.0.0.1:8000/course/api/field-matching/',
+            // url: 'http://127.0.0.1:8000/course/api/field-matching/',
+            url: `${this.data.ip_addr}/course/api/field-matching/`,
             method: 'POST',
             header: {
                 'Authorization': 'Bearer ' + token, // 关键所在！
@@ -296,12 +340,69 @@ Page({
         });
     },
 
+    submitMatched(callback) {
+        const id_list = this.data.matchedBlockIds;
+
+        if (id_list.length === 0) {
+            wx.showToast({
+                title: '请选择要预约的场地时段'
+            });
+            if (typeof callback === 'function') {
+                callback(false); // 执行失败回调（可选）
+            }
+            return;
+        }
+
+        wx.request({
+            // url: 'http://127.0.0.1:8000/course/api/field-matched/',
+            url: `${this.data.ip_addr}/course/api/field-matched/`,
+            method: 'POST',
+            header: {
+                'Authorization': 'Bearer ' + wx.getStorageSync('token'),
+                'content-type': 'application/json', 
+            },
+            data: {
+                id_list: id_list,
+            },
+            success: (res) => {
+                if (res.statusCode === 200 && res.data) {
+                    wx.showToast({
+                        title: '预约成功'
+                    });
+                    console.log('预约成功:', res.data);
+                    if (typeof callback === 'function') {
+                        callback(true); // 执行成功回调
+                    }
+                } else {
+                    wx.showToast({
+                        icon: 'none',
+                        title: '预约失败，请重试'
+                    });
+                    console.error('预约失败:', res.data);
+                    if (typeof callback === 'function') {
+                        callback(false); // 执行失败回调
+                    }
+                }
+            },
+            fail: (err) => {
+                wx.showToast({
+                    icon: 'none',
+                    title: '网络异常，请检查网络'
+                });
+                console.error('请求失败:', err);
+                if (typeof callback === 'function') {
+                    callback(false); // 执行失败回调
+                }
+            }
+        });
+    },
+
     confirmOrder() {
 
         // send request 
         this.submitMatching((success) => {
             const selectedDate = this.data.dates[this.data.selectedDateIndex].date;
-            this.updateDate(selectedDate)
+            this.updateDate(selectedDate);
         });
 
         this.setData({
@@ -312,6 +413,23 @@ Page({
 
         this.setData({
             visible: false
+        });
+    },
+
+    confirmMatchedOrder() {
+        this.submitMatched((success) => {
+            const selectedDate = this.data.dates[this.data.selectedDateIndex].date;
+            this.updateDate(selectedDate);
+        });
+
+        this.setData({
+            totalPrice: '0.00',
+            selectedHours: 0,
+            onBooking: false
+        });
+
+        this.setData({
+            matchedConfirmVisible: false
         });
     },
 
@@ -369,11 +487,12 @@ Page({
     },
 
     handleModeSwitch(e) {
-        this.setData({
-            mode: !this.data.mode
-        });
         const selectedDate = this.data.dates[this.data.selectedDateIndex].date;
-        this.updateDate(selectedDate)
+        this.updateDate(selectedDate, () => {
+            this.setData({
+                mode: !this.data.mode
+            });
+        });
     },
 
     handleMatchedSelected(e) {

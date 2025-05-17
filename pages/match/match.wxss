@@ -179,6 +179,10 @@
     background-color: rgb(133, 193, 221);
 }
 
+.matched-selected {
+    background-color: rgb(240, 199, 167);
+}
+
 .matching {
     background-color: rgb(227, 180, 231);
 }
@@ -518,17 +522,20 @@
 }
 
 .avatar {
-    width: 60px; /* 或者任何你希望的尺寸 */
+    width: 60px;
+    /* 或者任何你希望的尺寸 */
     height: 60px;
     overflow: hidden;
-    border-radius: 50%; /* 使容器变为圆形 */
+    border-radius: 50%;
+    /* 使容器变为圆形 */
 }
 
 /* 确保图片保持其宽高比并完全填满容器 */
 .round-image {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 保持图片的比例，同时裁剪以适应容器 */
+    object-fit: cover;
+    /* 保持图片的比例，同时裁剪以适应容器 */
 }
 
 .avatar-right-part {
@@ -623,4 +630,188 @@
     color: #fff;
     font-size: 32rpx;
     font-weight: 500;
+}
+
+/* POPUP MATCHED CONFIRM */
+
+.popup-bottom-block {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 820rpx;
+    /* background-color: chartreuse; */
+}
+
+.popup-bottom-topbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 120rpx;
+    /* background-color: rgb(189, 67, 67); */
+    background-color: rgb(241, 241, 241);
+}
+
+.popup-bottom-basic-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 120rpx;
+    background-color: rgb(255, 255, 255);
+}
+
+.popup-bottom-date-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    /* background-color: cyan; */
+    /* margin-top: 20rpx; */
+    height: 100%;
+}
+
+.popup-bottom-date {
+    display: flex;
+    font-size: 30rpx;
+    font-weight: 500;
+    padding-top: 15rpx;
+    padding-left: 20rpx;
+}
+
+.popup-bottom-week {
+    display: flex;
+    font-size: 26rpx;
+    font-weight: 500;
+    padding-bottom: 15rpx;
+    padding-left: 20rpx;
+}
+
+.popup-bottom-price {
+    height: 100%;
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #e60012;
+    /* 红色 */
+    /* background-color: black; */
+    padding-right: 30rpx;
+    padding-top: 30rpx;
+    /* background-color: darkcyan; */
+}
+
+.popup-bottom-scroll-area {
+    display: flex;
+    flex-direction: column;
+    height: 600rpx;
+    width: 100%;
+}
+
+.popup-bottom-midbar {
+    width: 100%;
+    /* background-color: orange; */
+}
+
+.popup-bottom-midbar-block {
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    margin-inline: 20rpx;
+    margin-top: 20rpx;
+    margin-bottom: 20rpx;
+    background-color: rgb(240, 240, 240);
+    padding: 20rpx;
+}
+
+.popup-bottom-midbar-block-user-and-price {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10rpx;
+    /* margin-inline: 20rpx; */
+}
+
+.popup-bottom-midbar-block-user-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.popup-bottom-midbar-block-avatar {
+    width: 50px;
+    /* 或者任何你希望的尺寸 */
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    /* 使容器变为圆形 */
+}
+
+/* 确保图片保持其宽高比并完全填满容器 */
+.round-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 保持图片的比例，同时裁剪以适应容器 */
+}
+
+.popup-bottom-midbar-block-avatar-right-part {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 20rpx;
+}
+
+.popup-bottom-midbar-block-nickname {
+    font-size: 30rpx;
+    margin-bottom: 0rpx;
+}
+
+.popup-bottom-midbar-block-level {
+    font-size: 26rpx;
+}
+
+.popup-bottom-midbar-block-payment-info {
+    display: flex;
+    /* margin-right: 20rpx; */
+    color: red;
+    font-weight: 500;
+}
+
+.popup-bottom-midbar-block-time-and-field {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 26rpx;
+    color: rgb(56, 56, 56);
+}
+
+
+.popup-bottom-bottom-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    height: 100rpx;
+    width: 100%;
+}
+
+.popup-bottom-submit-button-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000000;
+    color: #fff;
+    font-size: 32rpx;
+    padding: 24rpx 300rpx;
+    font-weight: 500;
+    margin-top: 20rpx;
 }

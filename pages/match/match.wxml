@@ -36,7 +36,9 @@
                         <view class="time-row">
                             <text class="time-cell">{{time}}</text>
                             <block wx:for="{{fields}}" wx:key="field" wx:for-item="field">
-                                <view class="slot {{ mode ? (fieldDict[time][field].status == 1 ? 'available' : (fieldDict[time][field].status == 0 ? 'selected' : 'booked')) : (fieldDict[time][field].status == 1 ? 'available' : ((fieldDict[time][field].status == 2 || fieldDict[time][field].status == 4) ? 'booked' : (fieldDict[time][field].status == 3 ? 'matching' : 'selected'))) }}" data-time="{{time}}" data-field="{{field}}" bindtap="{{mode ? 'selectMatchingSlot' : 'selectMatchedSlot'}}"></view>
+                                <!-- <view class="slot {{ mode ? (fieldDict[time][field].status == 1 ? 'available' : (fieldDict[time][field].status == 0 ? 'selected' : 'booked')) : (fieldDict[time][field].status == 1 ? 'available' : ((fieldDict[time][field].status == 2 || fieldDict[time][field].status == 4) ? 'booked' : (fieldDict[time][field].status == 3 ? 'matching' : 'selected'))) }}" data-time="{{time}}" data-field="{{field}}" bindtap="{{mode ? 'selectMatchingSlot' : 'selectMatchedSlot'}}"></view> -->
+                                <view class="slot {{ mode ? (fieldDict[time][field].status == 1 ? 'available' : (fieldDict[time][field].status == 0 ? 'selected' : 'booked')) : (fieldDict[time][field].status == 1 ? 'available' : ((fieldDict[time][field].status == 2 || fieldDict[time][field].status == 4) ? 'booked' : (fieldDict[time][field].status == 3 ? 'matching' : (fieldDict[time][field].status == 0 ? 'matched-selected' : '')))) }}" data-time="{{time}}" data-field="{{field}}" bindtap="{{ mode ? 'selectMatchingSlot' : 'selectMatchedSlot' }}"></view>
+
                             </block>
                         </view>
                     </block>
@@ -147,6 +149,55 @@
 
             <view class="popup-center-bottombar" bind:tap="handleMatchedSelected">
                 <view>{{matchedUserInfo.status === 0 ? '取消' : '选择'}}</view>
+            </view>
+
+        </view>
+    </t-popup>
+
+    <t-popup visible="{{matchedConfirmVisible}}" bind:visible-change="onMatchedConfirmVisibleChange" placement="bottom" class="popup">
+        <view class="popup-bottom-block">
+            <view class="popup-bottom-topbar">
+                <view class="popup-bottom-basic-info">
+                    <view class="popup-bottom-date-info">
+                        <view class="popup-bottom-date">{{dates[selectedDateIndex].date}}</view>
+                        <view class="popup-bottom-week">{{dates[selectedDateIndex].label}}</view>
+                    </view>
+                    <view class="popup-bottom-price">¥{{totalPrice}}</view>
+                </view>
+            </view>
+
+
+            <scroll-view class="popup-bottom-scroll-area" scroll-y="true" enable-flex>
+                <view class="popup-bottom-midbar">
+                    <block wx:for="{{matchedBlockIds}}" wx:key="id">
+                        <view class="popup-bottom-midbar-block">
+                            <view class="popup-bottom-midbar-block-user-and-price">
+                                <view class="popup-bottom-midbar-block-user-info">
+                                    <view class="popup-bottom-midbar-block-avatar">
+                                        <image class="round-image" src="{{matchedBlocks[item].icon || '/images/default-avatar.png'}}"></image>
+                                    </view>
+                                    <view class="popup-bottom-midbar-block-avatar-right-part">
+                                        <view class="popup-bottom-midbar-block-nickname">{{matchedBlocks[item].nickname}}</view>
+                                        <view class="popup-bottom-midbar-block-level">Level {{matchedBlocks[item].level}}</view>
+                                    </view>
+                                </view>
+                                <view class="popup-bottom-midbar-block-payment-info">¥100.00</view>
+                            </view>
+
+                            <view class="popup-bottom-midbar-block-time-and-field">
+                                <view class="popup-bottom-midbar-block-time">{{matchedBlocks[item].duration}}</view>
+                                <view class="popup-bottom-midbar-block-field">{{matchedBlocks[item].field}}</view>
+                            </view>
+                        </view>
+                    </block>
+                </view>
+            </scroll-view>
+
+
+            <view class="popup-bottom-bottom-bar">
+                <view class="popup-bottom-submit-button-view" bindtap="confirmMatchedOrder">
+                    <text>确认</text>
+                </view>
             </view>
 
         </view>

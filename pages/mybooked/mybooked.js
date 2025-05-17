@@ -1,6 +1,7 @@
 Component({
 
     data: {
+        ip_addr: "http://172.17.13.136:8000",
         blocks: [],
     },
 
@@ -29,7 +30,8 @@ Component({
             const token = wx.getStorageSync('token');
 
             wx.request({
-                url: 'http://127.0.0.1:8000/course/api/field-unbook/',
+                // url: 'http://127.0.0.1:8000/course/api/field-unbook/',
+                url: `${this.data.ip_addr}/course/api/field-unbook/`,
                 method: 'POST',
                 header: {
                     'Authorization': 'Bearer ' + token, // 关键所在！
@@ -76,7 +78,8 @@ Component({
 
         getUserBookData(callback) {
 
-            const url = `http://127.0.0.1:8000/course/api/user-book-data/`;
+            // const url = `http://127.0.0.1:8000/course/api/user-book-data/`;
+            const url = `${this.data.ip_addr}/course/api/user-book-data/`;
             const that = this;
             const token = wx.getStorageSync('token');
 

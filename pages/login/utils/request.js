@@ -1,5 +1,5 @@
 // utils/request.js：封装网络请求
-const BASE_URL = "http://127.0.0.1:8000/course/api";  // 使用 HTTPS
+const BASE_URL = "http://172.17.13.136:8000/course/api";  // 使用 HTTPS
 
 function request(url, method = "GET", data = {}, header = {}) {
   return new Promise((resolve, reject) => {
