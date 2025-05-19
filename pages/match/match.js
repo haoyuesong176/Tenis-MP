@@ -492,6 +492,11 @@ Page({
             this.setData({
                 mode: !this.data.mode
             });
+            this.setData({
+                totalPrice: '0.00',
+                selectedHours: 0,
+                onBooking: false
+            });
         });
     },
 
