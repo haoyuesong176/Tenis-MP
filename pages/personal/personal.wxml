@@ -1,78 +1,106 @@
 <!--pages/personal/personal.wxml-->
 <view class="container">
 
-  <scroll-view scroll-y class="scroll-container" scroll-with-animation>
-    <!-- 1. User Info -->
-    <view class="top-bar">
-      <view class="user-info">
-        <view class="avatar-container">
-          <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-            <image class="avatar" src="{{profileDict.icon}}" mode="aspectFill"></image>
-          </button>
-        </view>
-        <view class="user-details">
-          <text class="name">{{profileDict.nickname}}</text>
-          <text class="level">Level {{profileDict.level}}</text>
-        </view>
-      </view>
-      <view class="right-corner">
-        <view class="balance">
-          <view>
-            <image src="/images/wallet.bifold.png" class="plus-icon" />
-          </view>
-          <view>{{profileDict.balance}}</view>
-        </view>
-        <view>
-          <image src="/images/qrcode.png" class="plus-icon" />
-        </view>
-      </view>
-    </view>
-
-    <!-- 2. Upcoming Activities -->
-    <view class="schedule-wrapper">
-      <view class="schedule-title">今天日程</view>
-      <view class="schedule">
-        <scroll-view class="scroll-container" scroll-x="true" scroll-with-animation>
-          <view class="schedule-items">
-            <view class="schedule-item" wx:for="{{scheduleItems}}" wx:key="id">
-              <view class="item-content">
-                <text class="time">{{item.time}}</text>
-                <text class="title">{{item.title}}</text>
-                <text class="location">{{item.location}}</text>
-              </view>
+    <scroll-view scroll-y class="scroll-container" scroll-with-animation>
+        <!-- 1. User Info -->
+        <view class="top-bar">
+            <view class="user-info">
+                <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+                    <view class="avatar-container">
+                        <image class="avatar" src="{{profileDict.icon}}" mode="aspectFill"></image>
+                    </view>
+                </button>
+                <view class="user-details">
+                    <text class="name">{{profileDict.nickname}}</text>
+                </view>
             </view>
-          </view>
-        </scroll-view>
-      </view>
-    </view>
-
-    <!-- 3. Function Module -->
-    <view class="function">
-      <view class="function-title">功能服务</view>
-      <view class="function-grid">
-        <view class="row">
-          <view class="module" bindtap="handleBookingTap">
-            <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
-            <text>我的订场</text>
-          </view>
-          <view class="module" bindtap="handleTap">
-            <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
-            <text>发起中约球</text>
-          </view>
+            <view class="qrcode">
+                <image src="/images/qrcode_semibold.png" class="qrcode-icon" />
+            </view>
         </view>
-        <view class="row">
-          <view class="module" bindtap="handleTap">
-            <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
-            <text>匹配成功的约球</text>
-          </view>
-          <view class="module" bindtap="handleTap">
-            <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
-            <text>我的课程</text>
-          </view>
-        </view>
-      </view>
-    </view>
 
-  </scroll-view>
+        <!-- 2. Level & Balance -->
+        <view class="level-and-balance">
+            <view class="level">
+                <view class="level-title">NTRP {{profileDict.level}}</view>
+                <view class="progress-box">
+                    <progress percent="{{profileDict.level*20}}" stroke-width="3" activeColor="#88B9DA"></progress>
+                </view>
+                <view class="level-detail">定级说明</view>
+            </view>
+            <view class="balance-info">
+                <view class="balance">{{profileDict.balance}}</view>
+                <view class="balance-footnote">账户余额</view>
+            </view>
+        </view>
+
+        <!-- 3. Upcoming Activities -->
+        <view class="activity-container">
+            <text class="activity-heading">今日日程</text>
+            <scroll-view scroll-x="true" class="activity-scroll">
+                <block wx:for="{{todaySchedule}}" wx:key="index">
+                    <view class="activity-item-wrapper {{item.status === 2 ? 'booked' : (item.status === 3 ? 'matching' : 'matched')}}">
+                        <view class="activity-item">
+                            <view wx:if="{{item.status === 2}}" class="activity-item-label">订场</view>
+                            <view wx:elif="{{item.status === 3}}" class="activity-item-label">约球 - 发起中</view>
+                            <view wx:elif="{{item.status === 4}}" class="activity-item-label">约球 - 已匹配</view>
+                            <view class="activity-item-container">
+                                <view class="activity-item-content">
+                                    <view class="activity-item-content-time-and-field">
+                                        <view class="activity-item-content-time">• {{item.formattedTime}}</view>
+                                        <view class="activity-item-content-field">• {{item.field_name}}</view>
+                                    </view>
+                                    <view class="activity-item-content-avatar-container">
+                                        <image class="activity-item-content-avatar" src="{{item.opponent_icon_url}}" mode="aspectFill"></image>
+                                    </view>
+                                </view>
+                                <view class="activity-item-btn-container">
+                                    <view class="activity-item-btn">详情</view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </scroll-view>
+        </view>
+
+        <!-- 4. Function Module -->
+        <view class="function">
+            <view class="function-title">功能服务</view>
+            <view class="function-grid">
+                <view class="row">
+                    <view class="module" bindtap="handleBookingTap">
+                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+                        <text class="module-text">我的订场</text>
+                    </view>
+                    <view class="module" bindtap="handleTap">
+                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+                        <text class="module-text">待匹配约球</text>
+                    </view>
+                </view>
+                <view class="row">
+                    <view class="module" bindtap="handleTap">
+                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+                        <text class="module-text">已匹配约球</text>
+                    </view>
+                    <view class="module" bindtap="handleTap">
+                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+                        <text class="module-text">我的课程</text>
+                    </view>
+                </view>
+                <view class="row">
+                    <view class="module" bindtap="handleTap">
+                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+                        <text class="module-text">支付历史</text>
+                    </view>
+                    <view class="module" bindtap="handleTap">
+                        <image class="module-icon" src="/images/tennis.png" mode="aspectFit" />
+                        <text class="module-text">账户管理</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+    </scroll-view>
 
 </view>

@@ -1,37 +1,66 @@
 // pages/personal/personal.js
 Page({
     data: {
-        ip_addr: "http://172.17.13.136:8000",
+        // ip_addr: "http://172.17.13.136:8000",
+        ip_addr: "http://127.0.0.1:8000",
         profileDict: {},
-        scheduleItems: [{
-                id: 1,
-                time: '09:00',
-                title: '篮球训练',
-                location: '体育馆A区'
-            },
-            {
-                id: 2,
-                time: '12:30',
-                title: '约球活动',
-                location: '天元球场'
-            },
-            {
-                id: 3,
-                time: '15:00',
-                title: '课程预约',
-                location: '训练中心'
-            },
-            {
-                id: 4,
-                time: '18:30',
-                title: '团队邀约',
-                location: '滨江球场'
-            }
-        ]
+        todaySchedule: [],
     },
 
     onLoad() {
         this.getUserProfile();
+    },
+
+    onShow() {
+        this.getTodaySchedule();
+    },
+
+    getTodaySchedule(e) {
+        const that = this;
+    
+        wx.request({
+            url: `${this.data.ip_addr}/course/api/user-today-schedule/`,
+            method: 'GET',
+            header: {
+                'Authorization': 'Bearer ' + wx.getStorageSync('token'),
+                'Content-Type': 'application/json'
+            },
+            success(res) {
+                wx.hideLoading();
+    
+                if (res.statusCode === 200) {
+
+                    const scheduleList = res.data.map(item => {
+                        const startTime = item.time; 
+                        const endTime = that.getNextHalfHour(startTime);
+                        return {
+                            ...item,
+                            formattedTime: `${startTime} - ${endTime}`
+                        };
+                    });
+
+                    that.setData({
+                        todaySchedule: scheduleList
+                    });
+
+                    console.log(that.data.todaySchedule);
+                } else {
+                    wx.showToast({
+                        title: '加载日程失败',
+                        icon: 'none'
+                    });
+                    console.error('获取日程失败:', res);
+                }
+            },
+            fail(err) {
+                wx.hideLoading();
+                wx.showToast({
+                    title: '网络错误',
+                    icon: 'none'
+                });
+                console.error('请求失败:', err);
+            }
+        });
     },
 
     onChooseAvatar(e) {
@@ -122,6 +151,18 @@ Page({
                 console.error('Failed to fetch user profile:', err);
             }
         });
+    },
+
+    getNextHalfHour(time) {
+        const [hour, minute] = time.split(':').map(Number);
+        const date = new Date();
+        date.setHours(hour);
+        date.setMinutes(minute + 30);
+
+        const nextHour = String(date.getHours()).padStart(2, '0');
+        const nextMinute = String(date.getMinutes()).padStart(2, '0');
+
+        return `${nextHour}:${nextMinute}`;
     },
 
 });

@@ -1,6 +1,7 @@
 Page({
     data: {
-        ip_addr: "http://172.17.13.136:8000",
+        // ip_addr: "http://172.17.13.136:8000",
+        ip_addr: "http://127.0.0.1:8000",
         mode: true,
         blocks: [],
         matchedBlockIds: [],
