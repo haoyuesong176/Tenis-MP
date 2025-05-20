@@ -90,42 +90,25 @@
     margin-top: 20rpx;
 }
 
-.block-time-wrapper {
+.block-item-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-right: 60rpx;
+    width: 50%;
 }
 
-.block-time {
-    font-size: 30rpx;
-    color: gray;
-}
-
-.block-time-icon {
+.block-icon {
     height: 28rpx;
     width: 28rpx;
     margin-right: 15rpx;
 }
 
-.block-field-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.block-field {
+.block-item {
     font-size: 30rpx;
     color: gray;
 }
 
-.block-field-icon {
-    height: 30rpx;
-    width: 24rpx;
-    margin-right: 15rpx;
-}
 
 .block-price {
     font-size: 32rpx;
@@ -134,14 +117,22 @@
     margin-right: 20rpx;
 }
 
+.block-level-and-payment {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 10rpx;
+}
+
 .block-btn-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
     margin-top: 30rpx;
 }
 
-.block-unbook-btn {
+.block-unmatching-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -150,6 +141,20 @@
     color: white;
     background-color: rgb(0, 0, 0);
     margin-right: 20rpx;
+    margin-bottom: 20rpx;
+    box-sizing: border-box; 
+}
+
+.block-modify-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160rpx;
+    height: 60rpx;
+    color: black;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgb(187, 187, 187);
+    margin-right: 40rpx;
     margin-bottom: 20rpx;
     box-sizing: border-box; 
 }

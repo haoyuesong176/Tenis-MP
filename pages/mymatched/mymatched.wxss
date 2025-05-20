@@ -142,16 +142,13 @@
 }
 
 .block-unbook-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 160rpx;
-    height: 60rpx;
+    padding-inline: 40rpx;
+    padding-block: 10rpx;
+    width: 60rpx;
     color: white;
-    background-color: rgb(0, 0, 0);
+    background-color: black;
     margin-right: 20rpx;
     margin-bottom: 20rpx;
-    box-sizing: border-box; 
 }
 
 .pad {

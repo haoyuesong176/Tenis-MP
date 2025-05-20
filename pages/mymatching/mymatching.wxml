@@ -1,0 +1,94 @@
+<view class="container">
+
+    <view class="navbar">
+        <t-navbar t-class-placeholder="t-navbar-placeholder" t-class-content="t-navbar-content" title="待匹配约球" left-arrow bind:go-back="handleBack" />
+    </view>
+
+    <t-tabs animation="{{ { duration: 0.3 } }}" defaultValue="{{0}}" bind:change="onTabsChange" t-class="custom-tabs" t-class-content="custom-panel">
+        <t-tab-panel label="匹配中" value="0">
+            <view class="custom-panel__content">
+                <scroll-view class="scroll-area" scroll-y="true" enable-flex>
+                    <view class="block-container">
+                        <view class="block" wx:for="{{blocks.upcoming}}" wx:key="index">
+                            <view class="block-date-and-price">
+                                <view class="block-date-week">
+                                    <view class="block-date">{{item.date}}</view>
+                                    <view class="block-week">{{item.week}}</view>
+                                </view>
+                                <view class="block-price">¥{{item.price}}</view>
+                            </view>
+                            <view class="block-time-and-field">
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/clock.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.time}} - {{item.end_time}}</view>
+                                </view>
+
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/mappin.and.ellipse.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.field_name}}</view>
+                                </view>
+                            </view>
+                            <view class="block-level-and-payment">
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/star.png" mode="aspectFit"></image>
+                                    <view class="block-item">Level {{item.matching_min_level}}</view>
+                                </view>
+
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/creditcard.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.matching_payment_type == 1 ? '平摊制' : '个人承担'}}</view>
+                                </view>
+                            </view>
+                            <view class="block-btn-wrapper">
+                                <view class="block-modify-btn" bind:tap="handleUnbook" data-record-id="{{item.id}}">修改</view>
+                                <view class="block-unmatching-btn" bind:tap="handleUnbook" data-record-id="{{item.id}}">取消</view>
+                            </view>
+                        </view>
+                        <view class="pad"></view>
+                    </view>
+                </scroll-view>
+            </view>
+        </t-tab-panel>
+        <t-tab-panel label="已失效" value="1">
+            <view class="custom-panel__content">
+                <scroll-view class="scroll-area" scroll-y="true" enable-flex>
+                    <view class="block-container">
+                        <view class="block" wx:for="{{blocks.finished}}" wx:key="index">
+                            <view class="block-date-and-price">
+                                <view class="block-date-week">
+                                    <view class="block-date">{{item.date}}</view>
+                                    <view class="block-week">{{item.week}}</view>
+                                </view>
+                                <view class="block-price">¥{{item.price}}</view>
+                            </view>
+                            <view class="block-time-and-field">
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/clock.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.time}} - {{item.end_time}}</view>
+                                </view>
+
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/mappin.and.ellipse.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.field_name}}</view>
+                                </view>
+                            </view>
+                            <view class="block-level-and-payment">
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/star.png" mode="aspectFit"></image>
+                                    <view class="block-item">Level {{item.matching_min_level}}</view>
+                                </view>
+
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/creditcard.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.matching_payment_type == 1 ? '平摊制' : '个人承担'}}</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="pad"></view>
+                    </view>
+                </scroll-view>
+            </view>
+        </t-tab-panel>
+    </t-tabs>
+
+</view>

@@ -157,38 +157,5 @@ Component({
                 }
             });
         },
-
-
-
-        // getUserBookData(callback) {
-
-        //     const url = `${this.data.ip_addr}/course/api/user-book-data/`;
-        //     const that = this;
-        //     const token = wx.getStorageSync('token');
-
-        //     wx.request({
-        //         url: url,
-        //         method: 'GET',
-        //         header: {
-        //             'Authorization': 'Bearer ' + token,
-        //             'Content-Type': 'application/json'
-        //         },
-        //         success(res) {
-        //             const data = res.data;
-        //             console.log(data);
-        //             that.setData({
-        //                 blocks: data
-        //             }, () => {
-        //                 console.log('User book data fetched:', that.data.blocks);
-        //                 if (typeof callback === 'function') {
-        //                     callback();
-        //                 }
-        //             });
-        //         },
-        //         fail(err) {
-        //             console.error('Failed to fetch user book data:', err);
-        //         }
-        //     });
-        // },
     },
 });

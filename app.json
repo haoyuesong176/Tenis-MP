@@ -5,7 +5,9 @@
         "pages/tennis/tennis",
         "pages/book/book",
         "pages/match/match",
-        "pages/mybooked/mybooked"
+        "pages/mybooked/mybooked",
+        "pages/mymatching/mymatching",
+        "pages/mymatched/mymatched"
     ],
     "window": {
         "navigationBarTitleText": "功能演示",

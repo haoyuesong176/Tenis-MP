@@ -65,8 +65,8 @@
         </view>
 
         <!-- 4. Function Module -->
-        <view class="function">
-            <view class="function-title">功能服务</view>
+        <!-- <view class="function">
+            <view class="function-heading">功能服务</view>
             <view class="function-grid">
                 <view class="row">
                     <view class="module" bindtap="handleBookingTap">
@@ -98,6 +98,47 @@
                         <text class="module-text">账户管理</text>
                     </view>
                 </view>
+            </view>
+        </view> -->
+        <view class="function">
+            <view class="function-heading">功能服务</view>
+            <view class="function-grid">
+
+                <!-- 第一行 -->
+                <view class="row">
+                    <view class="module" bindtap="handleBookedTap">
+                        <image class="module-icon" src="/images/sportscourt.png" mode="aspectFit" />
+                        <text class="module-text">我的订场</text>
+                    </view>
+                    <view class="module" bindtap="handleMatchingTap">
+                        <image class="module-icon" src="/images/tennis.racket.png" mode="aspectFit" />
+                        <text class="module-text">待匹配约球</text>
+                    </view>
+                    <view class="module" bindtap="handleMatchedTap">
+                        <image class="module-icon" src="/images/figure.tennis.png" mode="aspectFit" />
+                        <text class="module-text">已匹配约球</text>
+                    </view>
+                    <view class="module" bindtap="handleTap">
+                        <image class="module-icon" src="/images/book.pages.png" mode="aspectFit" />
+                        <text class="module-text">我的课程</text>
+                    </view>
+                </view>
+
+                <!-- 第二行 -->
+                <view class="row">
+                    <view class="module" bindtap="handleTap">
+                        <image class="module-icon" src="/images/pencil.and.list.clipboard.png" mode="aspectFit" />
+                        <text class="module-text">支付记录</text>
+                    </view>
+                    <view class="module" bindtap="handleTap">
+                        <image class="module-icon" src="/images/gearshape.png" mode="aspectFit" />
+                        <text class="module-text">账户管理</text>
+                    </view>
+                    <!-- 空模块占位，保持四列对齐 -->
+                    <view class="module empty"></view>
+                    <view class="module empty"></view>
+                </view>
+
             </view>
         </view>
 

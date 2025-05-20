@@ -22,7 +22,7 @@
                                     <image class="block-time-icon" src="/images/clock.png"></image>
                                     <view class="block-time">{{item.time}} - {{item.end_time}}</view>
                                 </view>
-                                
+
                                 <view class="block-field-wrapper">
                                     <image class="block-field-icon" src="/images/mappin.and.ellipse.png"></image>
                                     <view class="block-field">{{item.field_name}}</view>
@@ -54,7 +54,7 @@
                                     <image class="block-time-icon" src="/images/clock.png"></image>
                                     <view class="block-time">{{item.time}} - {{item.end_time}}</view>
                                 </view>
-                                
+
                                 <view class="block-field-wrapper">
                                     <image class="block-field-icon" src="/images/mappin.and.ellipse.png"></image>
                                     <view class="block-field">{{item.field_name}}</view>

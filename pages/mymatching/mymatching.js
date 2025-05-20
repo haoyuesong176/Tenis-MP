@@ -8,7 +8,7 @@ Component({
 
     methods: {
         onLoad() {
-            this.getUserBookData()
+            this.getUserMatchingData()
         },
 
         onTabsChange(event) {
@@ -31,7 +31,6 @@ Component({
             const token = wx.getStorageSync('token');
 
             wx.request({
-                // url: 'http://127.0.0.1:8000/course/api/field-unbook/',
                 url: `${this.data.ip_addr}/course/api/field-unbook/`,
                 method: 'POST',
                 header: {
@@ -88,8 +87,8 @@ Component({
             return `${nextHour}:${nextMinute}`;
         },
 
-        getUserBookData(callback) {
-            const url = `${this.data.ip_addr}/course/api/user-book-data/`;
+        getUserMatchingData(callback) {
+            const url = `${this.data.ip_addr}/course/api/user-matching-data/`;
             const that = this;
             const token = wx.getStorageSync('token');
 
@@ -157,38 +156,5 @@ Component({
                 }
             });
         },
-
-
-
-        // getUserBookData(callback) {
-
-        //     const url = `${this.data.ip_addr}/course/api/user-book-data/`;
-        //     const that = this;
-        //     const token = wx.getStorageSync('token');
-
-        //     wx.request({
-        //         url: url,
-        //         method: 'GET',
-        //         header: {
-        //             'Authorization': 'Bearer ' + token,
-        //             'Content-Type': 'application/json'
-        //         },
-        //         success(res) {
-        //             const data = res.data;
-        //             console.log(data);
-        //             that.setData({
-        //                 blocks: data
-        //             }, () => {
-        //                 console.log('User book data fetched:', that.data.blocks);
-        //                 if (typeof callback === 'function') {
-        //                     callback();
-        //                 }
-        //             });
-        //         },
-        //         fail(err) {
-        //             console.error('Failed to fetch user book data:', err);
-        //         }
-        //     });
-        // },
     },
 });

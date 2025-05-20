@@ -254,51 +254,50 @@
 .function {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
-    margin-top: 30rpx;
+    margin-top: 50rpx;
+    padding-inline: 30rpx;
 }
 
-.function-title {
+.function-heading {
     font-size: 30rpx;
-    margin-left: 40rpx;
+    color: #333;
+    font-weight: 500;
+    padding: 10rpx;
 }
 
+/* new  */
 .function-grid {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin-top: 20rpx;
     width: 100%;
-}
-
-.row {
+  }
+  
+  .row {
     display: flex;
-    justify-content: space-between;
-    /* margin-bottom: 10rpx; */
-    /* margin-inline: 200rpx; */
-    width: 100%;
-}
-
-.module {
-    /* flex: 1; */
+    flex-direction: row;
+    justify-content: space-between; /* 均匀分布 */
+    margin-bottom: 40rpx;
+  }
+  
+  .module {
+    width: 23%; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
-    border-radius: 12rpx;
-    padding: 30rpx;
-    /* text-align: center; */
-    margin: 0 10rpx;
-    width: 50%;
-}
-
-.module-icon {
+  }
+  
+  .module-icon {
     width: 60rpx;
     height: 60rpx;
-    margin-bottom: 15rpx;
-}
-
-.module-text {
+    margin-bottom: 10rpx;
+  }
+  
+  .module-text {
     font-size: 22rpx;
-}
+    color: gray;
+  }
+
+  .empty {
+    visibility: hidden; /* 占位但不显示内容 */
+  }

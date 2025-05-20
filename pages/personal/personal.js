@@ -105,9 +105,21 @@ Page({
         });
     },
 
-    handleBookingTap() {
+    handleBookedTap() {
         wx.navigateTo({
             url: '/pages/mybooked/mybooked',
+        });
+    },
+
+    handleMatchingTap() {
+        wx.navigateTo({
+            url: '/pages/mymatching/mymatching',
+        });
+    },
+
+    handleMatchedTap() {
+        wx.navigateTo({
+            url: '/pages/mymatched/mymatched',
         });
     },
 
