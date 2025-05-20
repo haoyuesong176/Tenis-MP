@@ -45,19 +45,18 @@
     flex-direction: column;
     justify-content: flex-start;
     align-content: flex-start;
-    margin: 20rpx;
+    margin: 30rpx;
     box-sizing: border-box;
     background-color: #f8f8f8;
 }
 
 .block {
-    /* height: 260rpx; */
-    margin-bottom: 20rpx;
+    margin-bottom: 30rpx;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 20rpx;
+    padding: 30rpx;
 }
 
 .block-date-and-price {
@@ -73,13 +72,12 @@
 }
 
 .block-date {
-    font-size: 32rpx;
+    font-size: 26rpx;
     font-weight: 500;
-    margin-right: 30rpx;
 }
 
 .block-week {
-    font-size: 30rpx;
+    font-size: 24rpx;
     font-weight: 500;
 }
 
@@ -87,7 +85,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    margin-top: 20rpx;
+    margin-top: 15rpx;
 }
 
 .block-item-wrapper {
@@ -95,33 +93,32 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    width: 50%;
+    width: 45%;
 }
 
 .block-icon {
-    height: 28rpx;
-    width: 28rpx;
+    height: 26rpx;
+    width: 26rpx;
     margin-right: 15rpx;
 }
 
 .block-item {
-    font-size: 30rpx;
+    font-size: 24rpx;
     color: gray;
 }
 
 
 .block-price {
-    font-size: 32rpx;
+    font-size: 28rpx;
     font-weight: 500;
     color: red;
-    margin-right: 20rpx;
 }
 
 .block-level-and-payment {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    margin-top: 10rpx;
+    margin-top: 8rpx;
 }
 
 .block-btn-wrapper {
@@ -129,34 +126,33 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    margin-top: 30rpx;
+    margin-top: 25rpx;
 }
 
 .block-unmatching-btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 160rpx;
-    height: 60rpx;
+    width: 140rpx;
+    height: 46rpx;
     color: white;
     background-color: rgb(0, 0, 0);
-    margin-right: 20rpx;
-    margin-bottom: 20rpx;
     box-sizing: border-box; 
+    font-size: 22rpx;
 }
 
 .block-modify-btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 160rpx;
-    height: 60rpx;
+    width: 140rpx;
+    height: 46rpx;
     color: black;
     background-color: rgb(255, 255, 255);
     border: solid 1px rgb(187, 187, 187);
-    margin-right: 40rpx;
-    margin-bottom: 20rpx;
+    margin-right: 36rpx;
     box-sizing: border-box; 
+    font-size: 22rpx;
 }
 
 .pad {
