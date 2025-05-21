@@ -1,8 +1,6 @@
 // pages/personal/personal.js
 Page({
     data: {
-        ip_addr: "http://192.168.1.2:8000",
-        // ip_addr: "http://127.0.0.1:8000",
         profileDict: {},
         todaySchedule: [],
     },
@@ -19,7 +17,7 @@ Page({
         const that = this;
     
         wx.request({
-            url: `${this.data.ip_addr}/course/api/user-today-schedule/`,
+            url: `${getApp().globalData.ip_addr}/course/api/user-today-schedule/`,
             method: 'GET',
             header: {
                 'Authorization': 'Bearer ' + wx.getStorageSync('token'),
@@ -72,8 +70,7 @@ Page({
         });
 
         wx.uploadFile({
-            // url: 'http://127.0.0.1:8000/course/api/update-user-icon/', 
-            url: `${this.data.ip_addr}/course/api/update-user-icon/`,
+            url: `${getApp().globalData.ip_addr}/course/api/update-user-icon/`,
             filePath: avatarUrl,
             name: 'icon',
             header: {
@@ -128,8 +125,7 @@ Page({
     },
 
     getUserProfile(callback) {
-        // const url = `http://127.0.0.1:8000/course/api/user-profile/`;
-        const url = `${this.data.ip_addr}/course/api/user-profile/`;
+        const url = `${getApp().globalData.ip_addr}/course/api/user-profile/`;
         const that = this;
         const token = wx.getStorageSync('token');
 
@@ -144,8 +140,7 @@ Page({
                 const data = res.data;
 
                 // === 这里补全 icon 字段为完整 URL ===
-                // const host = 'http://127.0.0.1:8000'; 
-                const host = that.data.ip_addr; 
+                const host = getApp().globalData.ip_addr; 
                 if (data.icon && !data.icon.startsWith('http')) {
                     data.icon = host + data.icon; // 变成完整路径
                 }

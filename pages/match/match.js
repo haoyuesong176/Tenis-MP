@@ -1,7 +1,5 @@
 Page({
     data: {
-        ip_addr: "http://192.168.1.2:8000",
-        // ip_addr: "http://127.0.0.1:8000",
         mode: true,
         blocks: [],
         matchedBlockIds: [],
@@ -80,8 +78,7 @@ Page({
     updateDate(selectedDate, callback) {
         console.log('The Selected Date:', selectedDate);
 
-        // const url = `http://127.0.0.1:8000/course/api/field-data/?date=${selectedDate}`;
-        const url = `${this.data.ip_addr}/course/api/field-data/?date=${selectedDate}`;
+        const url = `${getApp().globalData.ip_addr}/course/api/field-data/?date=${selectedDate}`;
         const that = this;
 
         // 从本地缓存获取 access_token（你在登录成功时应该存过它）
@@ -121,8 +118,7 @@ Page({
 
         if (status === 3 || status === 0) {
             wx.request({
-                // url: `http://127.0.0.1:8000/course/fields/${id}/matching-user/`,
-                url: `${this.data.ip_addr}/course/fields/${id}/matching-user/`,
+                url: `${getApp().globalData.ip_addr}/course/fields/${id}/matching-user/`,
                 method: 'GET',
                 header: {
                     'Authorization': 'Bearer ' + wx.getStorageSync('token'),
@@ -296,8 +292,7 @@ Page({
 
         // 发送请求
         wx.request({
-            // url: 'http://127.0.0.1:8000/course/api/field-matching/',
-            url: `${this.data.ip_addr}/course/api/field-matching/`,
+            url: `${getApp().globalData.ip_addr}/course/api/field-matching/`,
             method: 'POST',
             header: {
                 'Authorization': 'Bearer ' + token, // 关键所在！
@@ -355,8 +350,7 @@ Page({
         }
 
         wx.request({
-            // url: 'http://127.0.0.1:8000/course/api/field-matched/',
-            url: `${this.data.ip_addr}/course/api/field-matched/`,
+            url: `${getApp().globalData.ip_addr}/course/api/field-matched/`,
             method: 'POST',
             header: {
                 'Authorization': 'Bearer ' + wx.getStorageSync('token'),

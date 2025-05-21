@@ -1,6 +1,5 @@
 // utils/request.js：封装网络请求
-const BASE_URL = "http://192.168.1.2:8000/course/api";  
-// const BASE_URL = "http://127.0.0.1:8000/course/api";
+const BASE_URL = `${getApp().globalData.ip_addr}/course/api`;  
 
 function request(url, method = "GET", data = {}, header = {}) {
   return new Promise((resolve, reject) => {

@@ -1,8 +1,6 @@
 Component({
 
     data: {
-        ip_addr: "http://192.168.1.2:8000",
-        // ip_addr: "http://127.0.0.1:8000",
         blocks: [],
     },
 
@@ -31,7 +29,7 @@ Component({
             const token = wx.getStorageSync('token');
 
             wx.request({
-                url: `${this.data.ip_addr}/course/api/field-unbook/`,
+                url: `${getApp().globalData.ip_addr}/course/api/field-unbook/`,
                 method: 'POST',
                 header: {
                     'Authorization': 'Bearer ' + token, // 关键所在！
@@ -88,7 +86,7 @@ Component({
         },
 
         getUserBookData(callback) {
-            const url = `${this.data.ip_addr}/course/api/user-book-data/`;
+            const url = `${getApp().globalData.ip_addr}/course/api/user-book-data/`;
             const that = this;
             const token = wx.getStorageSync('token');
 
@@ -157,37 +155,5 @@ Component({
             });
         },
 
-
-
-        // getUserBookData(callback) {
-
-        //     const url = `${this.data.ip_addr}/course/api/user-book-data/`;
-        //     const that = this;
-        //     const token = wx.getStorageSync('token');
-
-        //     wx.request({
-        //         url: url,
-        //         method: 'GET',
-        //         header: {
-        //             'Authorization': 'Bearer ' + token,
-        //             'Content-Type': 'application/json'
-        //         },
-        //         success(res) {
-        //             const data = res.data;
-        //             console.log(data);
-        //             that.setData({
-        //                 blocks: data
-        //             }, () => {
-        //                 console.log('User book data fetched:', that.data.blocks);
-        //                 if (typeof callback === 'function') {
-        //                     callback();
-        //                 }
-        //             });
-        //         },
-        //         fail(err) {
-        //             console.error('Failed to fetch user book data:', err);
-        //         }
-        //     });
-        // },
     },
 });

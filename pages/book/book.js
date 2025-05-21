@@ -1,7 +1,5 @@
 Page({
     data: {
-        ip_addr: "http://192.168.1.2:8000",
-        // ip_addr: "http://127.0.0.1:8000",
         blocks: [],
         dates: [],
         selectedDateIndex: 0,
@@ -75,8 +73,7 @@ Page({
     updateDate(selectedDate, callback) {
         console.log('The Selected Date:', selectedDate);
 
-        // const url = `http://127.0.0.1:8000/course/api/field-data/?date=${selectedDate}`;
-        const url = `${this.data.ip_addr}/course/api/field-data/?date=${selectedDate}`;
+        const url = `${getApp().globalData.ip_addr}/course/api/field-data/?date=${selectedDate}`;
         const that = this;
 
         // 从本地缓存获取 access_token（你在登录成功时应该存过它）
@@ -191,7 +188,7 @@ Page({
 
         // 发送请求
         wx.request({
-            url: `${this.data.ip_addr}/course/api/field-book/`,
+            url: `${getApp().globalData.ip_addr}/course/api/field-book/`,
             method: 'POST',
             header: {
                 'Authorization': 'Bearer ' + token, // 关键所在！
