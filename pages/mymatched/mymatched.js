@@ -6,7 +6,7 @@ Component({
 
     methods: {
         onLoad() {
-            this.getUserBookData()
+            this.getUserMatchedData()
         },
 
         onTabsChange(event) {
@@ -17,62 +17,6 @@ Component({
             console.log('go back');
         },
 
-        handleUnbook(e) {
-            const recordId = e.currentTarget.dataset.recordId;
-            this.requestUnBook(recordId, (success) => {
-                this.getUserBookData();
-            });
-        },
-
-        requestUnBook(recordId, callback) {
-
-            const token = wx.getStorageSync('token');
-
-            wx.request({
-                url: `${getApp().globalData.ip_addr}/course/api/field-unbook/`,
-                method: 'POST',
-                header: {
-                    'Authorization': 'Bearer ' + token, // 关键所在！
-                    'content-type': 'application/json', // 默认值
-                },
-                data: {
-                    id_list: [recordId]
-                },
-                success: (res) => {
-                    if (res.statusCode === 200 && res.data) {
-                        wx.showToast({
-                            title: '取消成功'
-                        });
-                        console.log('取消成功:', res.data);
-                        if (typeof callback === 'function') {
-                            callback(true);
-                        }
-                    } else {
-                        wx.showToast({
-                            icon: 'none',
-                            title: '取消失败，请重试'
-                        });
-                        console.error('取消失败:', res.data);
-                        if (typeof callback === 'function') {
-                            callback(false); // 执行失败回调
-                        }
-                    }
-                },
-                fail: (err) => {
-                    wx.showToast({
-                        icon: 'none',
-                        title: '网络异常，请检查网络'
-                    });
-                    console.error('请求失败:', err);
-                    if (typeof callback === 'function') {
-                        callback(false); // 执行失败回调
-                    }
-                }
-            });
-
-        },
-
-        // 获取半小时后的时间函数
         getNextHalfHour(time) {
             const [hour, minute] = time.split(':').map(Number);
             const date = new Date();
@@ -85,8 +29,8 @@ Component({
             return `${nextHour}:${nextMinute}`;
         },
 
-        getUserBookData(callback) {
-            const url = `${getApp().globalData.ip_addr}/course/api/user-book-data/`;
+        getUserMatchedData(callback) {
+            const url = `${getApp().globalData.ip_addr}/course/api/user-matched-data/`;
             const that = this;
             const token = wx.getStorageSync('token');
 
@@ -143,14 +87,14 @@ Component({
                             finished: finished
                         }
                     }, () => {
-                        console.log('User book data fetched:', that.data.blocks);
+                        console.log('User Matched data fetched:', that.data.blocks);
                         if (typeof callback === 'function') {
                             callback();
                         }
                     });
                 },
                 fail(err) {
-                    console.error('Failed to fetch user book data:', err);
+                    console.error('Failed to fetch user Matched data:', err);
                 }
             });
         },

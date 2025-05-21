@@ -17,23 +17,23 @@ Component({
             console.log('go back');
         },
 
-        handleUnbook(e) {
+        handleUnMatching(e) {
             const recordId = e.currentTarget.dataset.recordId;
-            this.requestUnBook(recordId, (success) => {
-                this.getUserBookData();
+            this.requestUnMatching(recordId, (success) => {
+                this.getUserMatchingData();
             });
         },
 
-        requestUnBook(recordId, callback) {
+        requestUnMatching(recordId, callback) {
 
             const token = wx.getStorageSync('token');
 
             wx.request({
-                url: `${getApp().globalData.ip_addr}/course/api/field-unbook/`,
+                url: `${getApp().globalData.ip_addr}/course/api/field-unmatching/`,
                 method: 'POST',
                 header: {
-                    'Authorization': 'Bearer ' + token, // 关键所在！
-                    'content-type': 'application/json', // 默认值
+                    'Authorization': 'Bearer ' + token, 
+                    'content-type': 'application/json', 
                 },
                 data: {
                     id_list: [recordId]
@@ -72,7 +72,6 @@ Component({
 
         },
 
-        // 获取半小时后的时间函数
         getNextHalfHour(time) {
             const [hour, minute] = time.split(':').map(Number);
             const date = new Date();

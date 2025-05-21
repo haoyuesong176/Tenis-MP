@@ -40,8 +40,8 @@
                                 </view>
                             </view>
                             <view class="block-btn-wrapper">
-                                <view class="block-modify-btn" bind:tap="handleUnbook" data-record-id="{{item.id}}">修改</view>
-                                <view class="block-unmatching-btn" bind:tap="handleUnbook" data-record-id="{{item.id}}">取消</view>
+                                <!-- <view class="block-modify-btn" bind:tap="handleModify" data-record-id="{{item.id}}">修改</view> -->
+                                <view class="block-unmatching-btn" bind:tap="handleUnMatching" data-record-id="{{item.id}}">取消</view>
                             </view>
                         </view>
                         <view class="pad"></view>

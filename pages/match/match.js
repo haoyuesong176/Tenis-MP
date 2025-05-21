@@ -151,7 +151,7 @@ Page({
                             matchedBlocks: newMatchedBlocks
                         });
 
-                        // console.log(this.data.matchedBlocks);
+                        console.log(this.data.matchedBlocks);
                     } else {
                         wx.showToast({
                             title: '获取用户信息失败',

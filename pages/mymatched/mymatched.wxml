@@ -1,7 +1,7 @@
 <view class="container">
 
     <view class="navbar">
-        <t-navbar t-class-placeholder="t-navbar-placeholder" t-class-content="t-navbar-content" title="我的订场" left-arrow bind:go-back="handleBack" />
+        <t-navbar t-class-placeholder="t-navbar-placeholder" t-class-content="t-navbar-content" title="待匹配约球" left-arrow bind:go-back="handleBack" />
     </view>
 
     <t-tabs animation="{{ { duration: 0.3 } }}" defaultValue="{{0}}" bind:change="onTabsChange" t-class="custom-tabs" t-class-content="custom-panel">
@@ -15,21 +15,26 @@
                                     <view class="block-date">{{item.date}}</view>
                                     <view class="block-week">{{item.week}}</view>
                                 </view>
-                                <view class="block-price">¥{{item.price}}</view>
+                                <view class="opponent-info">
+                                    <view class="opponent-avatar-container">
+                                        <image class="opponent-avatar" src="{{item.opponent_icon_url}}" mode="aspectFill"></image>
+                                    </view>
+                                    <view class="opponent-name-and-level">
+                                        <view class="opponent-name">{{item.opponent_nickname}}</view>
+                                        <view class="opponent-level">Level {{item.opponent_level}}</view>
+                                    </view>
+                                </view>
                             </view>
                             <view class="block-time-and-field">
-                                <view class="block-time-wrapper">
-                                    <image class="block-time-icon" src="/images/clock.png"></image>
-                                    <view class="block-time">{{item.time}} - {{item.end_time}}</view>
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/clock.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.time}} - {{item.end_time}}</view>
                                 </view>
 
-                                <view class="block-field-wrapper">
-                                    <image class="block-field-icon" src="/images/mappin.and.ellipse.png"></image>
-                                    <view class="block-field">{{item.field_name}}</view>
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/mappin.and.ellipse.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.field_name}}</view>
                                 </view>
-                            </view>
-                            <view class="block-btn-wrapper">
-                                <view class="block-unbook-btn" bind:tap="handleUnbook" data-record-id="{{item.id}}">退订</view>
                             </view>
                         </view>
                         <view class="pad"></view>
@@ -47,17 +52,25 @@
                                     <view class="block-date">{{item.date}}</view>
                                     <view class="block-week">{{item.week}}</view>
                                 </view>
-                                <view class="block-price">¥{{item.price}}</view>
+                                <view class="opponent-info">
+                                    <view class="opponent-avatar-container">
+                                        <image class="opponent-avatar" src="{{item.opponent_icon_url}}" mode="aspectFill"></image>
+                                    </view>
+                                    <view class="opponent-name-and-level">
+                                        <view class="opponent-name">{{item.opponent_nickname}}</view>
+                                        <view class="opponent-level">Level {{item.opponent_level}}</view>
+                                    </view>
+                                </view>
                             </view>
                             <view class="block-time-and-field">
-                                <view class="block-time-wrapper">
-                                    <image class="block-time-icon" src="/images/clock.png"></image>
-                                    <view class="block-time">{{item.time}} - {{item.end_time}}</view>
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/clock.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.time}} - {{item.end_time}}</view>
                                 </view>
 
-                                <view class="block-field-wrapper">
-                                    <image class="block-field-icon" src="/images/mappin.and.ellipse.png"></image>
-                                    <view class="block-field">{{item.field_name}}</view>
+                                <view class="block-item-wrapper">
+                                    <image class="block-icon" src="/images/mappin.and.ellipse.png" mode="aspectFit"></image>
+                                    <view class="block-item">{{item.field_name}}</view>
                                 </view>
                             </view>
                         </view>

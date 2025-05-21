@@ -45,19 +45,18 @@
     flex-direction: column;
     justify-content: flex-start;
     align-content: flex-start;
-    margin: 20rpx;
+    margin: 30rpx;
     box-sizing: border-box;
     background-color: #f8f8f8;
 }
 
 .block {
-    /* height: 260rpx; */
-    margin-bottom: 20rpx;
+    margin-bottom: 30rpx;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 20rpx;
+    padding: 30rpx;
 }
 
 .block-date-and-price {
@@ -73,13 +72,12 @@
 }
 
 .block-date {
-    font-size: 32rpx;
+    font-size: 26rpx;
     font-weight: 500;
-    margin-right: 30rpx;
 }
 
 .block-week {
-    font-size: 30rpx;
+    font-size: 24rpx;
     font-weight: 500;
 }
 
@@ -90,65 +88,96 @@
     margin-top: 20rpx;
 }
 
-.block-time-wrapper {
+.block-item-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-right: 60rpx;
+    width: 45%;
 }
 
-.block-time {
-    font-size: 30rpx;
-    color: gray;
-}
-
-.block-time-icon {
-    height: 28rpx;
-    width: 28rpx;
+.block-icon {
+    height: 26rpx;
+    width: 26rpx;
     margin-right: 15rpx;
 }
 
-.block-field-wrapper {
+.block-item {
+    font-size: 24rpx;
+    color: gray;
+}
+
+.opponent-info {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 }
 
-.block-field {
-    font-size: 30rpx;
-    color: gray;
+.opponent-avatar-container {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
-.block-field-icon {
-    height: 30rpx;
-    width: 24rpx;
-    margin-right: 15rpx;
+.opponent-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.block-price {
-    font-size: 32rpx;
+.opponent-name-and-level {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 20rpx;
+}
+
+.opponent-name {
+    font-size: 26rpx;
     font-weight: 500;
-    color: red;
-    margin-right: 20rpx;
+}
+
+.opponent-level {
+    font-size: 24rpx;
+    font-weight: 500;
+    color: #88B9DA;
 }
 
 .block-btn-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    margin-top: 30rpx;
+    align-items: center;
+    margin-top: 25rpx;
 }
 
-.block-unbook-btn {
-    padding-inline: 40rpx;
-    padding-block: 10rpx;
-    width: 60rpx;
+.block-unmatching-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140rpx;
+    height: 46rpx;
     color: white;
-    background-color: black;
-    margin-right: 20rpx;
-    margin-bottom: 20rpx;
+    background-color: rgb(0, 0, 0);
+    box-sizing: border-box; 
+    font-size: 22rpx;
+}
+
+.block-modify-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140rpx;
+    height: 46rpx;
+    color: black;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgb(187, 187, 187);
+    margin-right: 36rpx;
+    box-sizing: border-box; 
+    font-size: 22rpx;
 }
 
 .pad {
