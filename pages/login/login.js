@@ -31,17 +31,17 @@ Page({
             .then(response => {
               // 后端返回的 token
               const token = response.access;
+              const refresh = response.refresh;
 
               // 存到本地
               wx.setStorageSync("token", token);
+              wx.setStorageSync("refresh_token", refresh);
 
               wx.showToast({
                 title: '登录成功',
                 icon: 'success'
               });
 
-              // 跳转到主页或其他页面
-              console.log("hello")
               wx.switchTab({
                 url: '/pages/tennis/tennis',
               });
