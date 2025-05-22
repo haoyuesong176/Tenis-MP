@@ -153,66 +153,6 @@ Page({
         });
     },
 
-    // submitBooking(callback) {
-    //     const blocks = this.data.blocks;
-
-    //     if (blocks.length === 0) {
-    //         wx.showToast({
-    //             title: '请选择要预约的场地时段'
-    //         });
-    //         if (typeof callback === 'function') {
-    //             callback(false); // 执行失败回调（可选）
-    //         }
-    //         return;
-    //     }
-
-    //     // 从 selectedBlocks 中提取 id 列表
-    //     const id_list = blocks.map(block => block.id);
-    //     const token = wx.getStorageSync('token'); // 假设你登录时存的 key 是这个
-
-    //     // 发送请求
-    //     wx.request({
-    //         url: `${getApp().globalData.ip_addr}/course/api/field-book/`,
-    //         method: 'POST',
-    //         header: {
-    //             'Authorization': 'Bearer ' + token, // 关键所在！
-    //             'content-type': 'application/json', // 默认值
-    //         },
-    //         data: {
-    //             id_list: id_list
-    //         },
-    //         success: (res) => {
-    //             if (res.statusCode === 200 && res.data) {
-    //                 wx.showToast({
-    //                     title: '预约成功'
-    //                 });
-    //                 console.log('预约成功:', res.data);
-    //                 if (typeof callback === 'function') {
-    //                     callback(true); // 执行成功回调
-    //                 }
-    //             } else {
-    //                 wx.showToast({
-    //                     icon: 'none',
-    //                     title: '预约失败，请重试'
-    //                 });
-    //                 console.error('预约失败:', res.data);
-    //                 if (typeof callback === 'function') {
-    //                     callback(false); // 执行失败回调
-    //                 }
-    //             }
-    //         },
-    //         fail: (err) => {
-    //             wx.showToast({
-    //                 icon: 'none',
-    //                 title: '网络异常，请检查网络'
-    //             });
-    //             console.error('请求失败:', err);
-    //             if (typeof callback === 'function') {
-    //                 callback(false); // 执行失败回调
-    //             }
-    //         }
-    //     });
-    // },
     submitBooking(callback) {
         const blocks = this.data.blocks;
     

@@ -5,6 +5,17 @@ Page({
     agreed: false,
   },
 
+  onLoad() {
+    const token = wx.getStorageSync("token");
+    const refresh = wx.getStorageSync("refresh_token");
+  
+    if (token && refresh) {
+      wx.switchTab({
+        url: '/pages/tennis/tennis', 
+      });
+    }
+  },
+
   toggleAgree() {
     this.setData({ agreed: !this.data.agreed });
   },
