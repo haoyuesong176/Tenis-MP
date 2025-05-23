@@ -1,3 +1,5 @@
+const request = require('../../utils/request').default;
+
 Component({
 
     data: {
@@ -26,26 +28,24 @@ Component({
 
         requestUnBook(recordId, callback) {
 
-            const token = wx.getStorageSync('token');
+            // 请求数据
+            const requestData = {
+                id_list: [recordId]
+            };
 
-            wx.request({
-                url: `${getApp().globalData.ip_addr}/course/api/field-unbook/`,
-                method: 'POST',
-                header: {
-                    'Authorization': 'Bearer ' + token, // 关键所在！
-                    'content-type': 'application/json', // 默认值
-                },
-                data: {
-                    id_list: [recordId]
-                },
-                success: (res) => {
+            // 调用 handleRequest 发送请求
+            request(`${getApp().globalData.ip_addr}/course/api/field-unbook/`, {
+                    method: 'POST',
+                    data: requestData
+                })
+                .then(res => {
                     if (res.statusCode === 200 && res.data) {
                         wx.showToast({
                             title: '取消成功'
                         });
                         console.log('取消成功:', res.data);
                         if (typeof callback === 'function') {
-                            callback(true);
+                            callback(true); // 执行成功回调
                         }
                     } else {
                         wx.showToast({
@@ -57,8 +57,8 @@ Component({
                             callback(false); // 执行失败回调
                         }
                     }
-                },
-                fail: (err) => {
+                })
+                .catch(err => {
                     wx.showToast({
                         icon: 'none',
                         title: '网络异常，请检查网络'
@@ -67,10 +67,9 @@ Component({
                     if (typeof callback === 'function') {
                         callback(false); // 执行失败回调
                     }
-                }
-            });
-
+                });
         },
+
 
         // 获取半小时后的时间函数
         getNextHalfHour(time) {
@@ -88,16 +87,12 @@ Component({
         getUserBookData(callback) {
             const url = `${getApp().globalData.ip_addr}/course/api/user-book-data/`;
             const that = this;
-            const token = wx.getStorageSync('token');
 
-            wx.request({
-                url: url,
-                method: 'GET',
-                header: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json'
-                },
-                success(res) {
+            // 请求数据
+            request(url, {
+                    method: 'GET',
+                })
+                .then(res => {
                     const data = res.data;
 
                     // 获取当前时间
@@ -148,11 +143,10 @@ Component({
                             callback();
                         }
                     });
-                },
-                fail(err) {
+                })
+                .catch(err => {
                     console.error('Failed to fetch user book data:', err);
-                }
-            });
+                });
         },
 
     },

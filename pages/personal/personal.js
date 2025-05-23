@@ -1,10 +1,12 @@
-// pages/personal/personal.js
+const request = require('../../utils/request').default;
+
 Page({
     data: {
         profileDict: {},
         todaySchedule: [],
     },
 
+    // 1. 异步问题
     onLoad() {
         this.getUserProfile();
     },
@@ -13,23 +15,19 @@ Page({
         this.getTodaySchedule();
     },
 
+
     getTodaySchedule(e) {
         const that = this;
-    
-        wx.request({
-            url: `${getApp().globalData.ip_addr}/course/api/user-today-schedule/`,
-            method: 'GET',
-            header: {
-                'Authorization': 'Bearer ' + wx.getStorageSync('token'),
-                'Content-Type': 'application/json'
-            },
-            success(res) {
-                wx.hideLoading();
-    
-                if (res.statusCode === 200) {
 
+        request(`${getApp().globalData.ip_addr}/course/api/user-today-schedule/`, {
+                method: 'GET',
+            })
+            .then(res => {
+                wx.hideLoading();
+
+                if (res.statusCode === 200) {
                     const scheduleList = res.data.map(item => {
-                        const startTime = item.time; 
+                        const startTime = item.time;
                         const endTime = that.getNextHalfHour(startTime);
                         return {
                             ...item,
@@ -49,18 +47,18 @@ Page({
                     });
                     console.error('获取日程失败:', res);
                 }
-            },
-            fail(err) {
+            })
+            .catch(err => {
                 wx.hideLoading();
                 wx.showToast({
                     title: '网络错误',
                     icon: 'none'
                 });
                 console.error('请求失败:', err);
-            }
-        });
+            });
     },
 
+    // 2. 如何处理？
     onChooseAvatar(e) {
         const {
             avatarUrl
@@ -124,23 +122,19 @@ Page({
         console.log('模块点击事件');
     },
 
-    getUserProfile(callback) {
-        const url = `${getApp().globalData.ip_addr}/course/api/user-profile/`;
-        const that = this;
-        const token = wx.getStorageSync('token');
 
-        wx.request({
-            url: url,
-            method: 'GET',
-            header: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            },
-            success(res) {
+    getUserProfile(callback) {
+        const that = this;
+        const url = `${getApp().globalData.ip_addr}/course/api/user-profile/`;
+
+        request(url, {
+                method: 'GET',
+            })
+            .then(res => {
                 const data = res.data;
 
                 // === 这里补全 icon 字段为完整 URL ===
-                const host = getApp().globalData.ip_addr; 
+                const host = getApp().globalData.ip_addr;
                 if (data.icon && !data.icon.startsWith('http')) {
                     data.icon = host + data.icon; // 变成完整路径
                 }
@@ -153,12 +147,12 @@ Page({
                         callback();
                     }
                 });
-            },
-            fail(err) {
+            })
+            .catch(err => {
                 console.error('Failed to fetch user profile:', err);
-            }
-        });
+            });
     },
+
 
     getNextHalfHour(time) {
         const [hour, minute] = time.split(':').map(Number);

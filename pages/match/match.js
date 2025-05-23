@@ -1,3 +1,5 @@
+const request = require('../../utils/request').default;
+
 Page({
     data: {
         mode: true,
@@ -76,23 +78,15 @@ Page({
 
 
     updateDate(selectedDate, callback) {
-        console.log('The Selected Date:', selectedDate);
+        console.log('Selected Date:', selectedDate);
 
         const url = `${getApp().globalData.ip_addr}/course/api/field-data/?date=${selectedDate}`;
         const that = this;
 
-        // 从本地缓存获取 access_token（你在登录成功时应该存过它）
-        const token = wx.getStorageSync('token'); // 假设你登录时存的 key 是这个
-        console.log("tttttttoken", token)
-
-        wx.request({
-            url: url,
-            method: 'GET',
-            header: {
-                'Authorization': 'Bearer ' + token, // 关键所在！
-                'Content-Type': 'application/json'
-            },
-            success(res) {
+        request(url, {
+                method: 'GET'
+            })
+            .then(res => {
                 const data = res.data;
                 that.setData({
                     fieldDict: data
@@ -102,11 +96,14 @@ Page({
                         callback();
                     }
                 });
-            },
-            fail(err) {
+            })
+            .catch(err => {
                 console.error('Failed to fetch field data:', err);
-            }
-        });
+                wx.showToast({
+                    title: '加载失败，请检查网络或重新登录',
+                    icon: 'none'
+                });
+            });
     },
 
     selectMatchedSlot(e) {
@@ -117,14 +114,12 @@ Page({
         const timeEnd = this.getNextHalfHour(time);
 
         if (status === 3 || status === 0) {
-            wx.request({
-                url: `${getApp().globalData.ip_addr}/course/fields/${id}/matching-user/`,
-                method: 'GET',
-                header: {
-                    'Authorization': 'Bearer ' + wx.getStorageSync('token'),
-                    'Content-Type': 'application/json'
-                },
-                success: (res) => {
+            const url = `${getApp().globalData.ip_addr}/course/fields/${id}/matching-user/`;
+
+            request(url, {
+                    method: 'GET'
+                })
+                .then(res => {
                     if (res.statusCode === 200 && res.data) {
                         const userInfo = res.data;
 
@@ -158,17 +153,16 @@ Page({
                             icon: 'none'
                         });
                     }
-                },
-                fail: () => {
+                })
+                .catch(err => {
+                    console.error('请求失败:', err);
                     wx.showToast({
-                        title: '网络请求失败',
+                        title: '网络请求失败或登录已过期',
                         icon: 'none'
                     });
-                }
-            });
+                });
         }
     },
-
 
     selectMatchingSlot(e) {
         const {
@@ -273,6 +267,7 @@ Page({
         }
     },
 
+
     submitMatching(callback) {
         const blocks = this.data.blocks;
 
@@ -286,24 +281,21 @@ Page({
             return;
         }
 
-        // 从 selectedBlocks 中提取 id 列表
         const id_list = blocks.map(block => block.id);
-        const token = wx.getStorageSync('token'); // 假设你登录时存的 key 是这个
 
-        // 发送请求
-        wx.request({
-            url: `${getApp().globalData.ip_addr}/course/api/field-matching/`,
-            method: 'POST',
-            header: {
-                'Authorization': 'Bearer ' + token, // 关键所在！
-                'content-type': 'application/json', // 默认值
-            },
-            data: {
-                id_list: id_list,
-                payment_type: this.data.payment_type,
-                min_level: this.data.level
-            },
-            success: (res) => {
+        // 组装请求数据
+        const requestData = {
+            id_list: id_list,
+            payment_type: this.data.payment_type,
+            min_level: this.data.level
+        };
+
+        // 调用 handleRequest 发送请求
+        request(`${getApp().globalData.ip_addr}/course/api/field-matching/`, {
+                method: 'POST',
+                data: requestData
+            })
+            .then(res => {
                 if (res.statusCode === 200 && res.data) {
                     wx.showToast({
                         title: '预约成功'
@@ -322,8 +314,8 @@ Page({
                         callback(false); // 执行失败回调
                     }
                 }
-            },
-            fail: (err) => {
+            })
+            .catch(err => {
                 wx.showToast({
                     icon: 'none',
                     title: '网络异常，请检查网络'
@@ -332,9 +324,9 @@ Page({
                 if (typeof callback === 'function') {
                     callback(false); // 执行失败回调
                 }
-            }
-        });
+            });
     },
+
 
     submitMatched(callback) {
         const id_list = this.data.matchedBlockIds;
@@ -349,17 +341,17 @@ Page({
             return;
         }
 
-        wx.request({
-            url: `${getApp().globalData.ip_addr}/course/api/field-matched/`,
-            method: 'POST',
-            header: {
-                'Authorization': 'Bearer ' + wx.getStorageSync('token'),
-                'content-type': 'application/json', 
-            },
-            data: {
-                id_list: id_list,
-            },
-            success: (res) => {
+        // 请求数据
+        const requestData = {
+            id_list: id_list
+        };
+
+        // 调用 handleRequest 发送请求
+        request(`${getApp().globalData.ip_addr}/course/api/field-matched/`, {
+                method: 'POST',
+                data: requestData
+            })
+            .then(res => {
                 if (res.statusCode === 200 && res.data) {
                     wx.showToast({
                         title: '预约成功'
@@ -378,8 +370,8 @@ Page({
                         callback(false); // 执行失败回调
                     }
                 }
-            },
-            fail: (err) => {
+            })
+            .catch(err => {
                 wx.showToast({
                     icon: 'none',
                     title: '网络异常，请检查网络'
@@ -388,9 +380,9 @@ Page({
                 if (typeof callback === 'function') {
                     callback(false); // 执行失败回调
                 }
-            }
-        });
+            });
     },
+
 
     confirmOrder() {
 

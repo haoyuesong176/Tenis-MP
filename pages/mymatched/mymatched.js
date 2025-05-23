@@ -1,3 +1,5 @@
+const request = require('../../utils/request').default;
+
 Component({
 
     data: {
@@ -29,19 +31,15 @@ Component({
             return `${nextHour}:${nextMinute}`;
         },
 
-        getUserMatchedData(callback) {
-            const url = `${getApp().globalData.ip_addr}/course/api/user-matched-data/`;
-            const that = this;
-            const token = wx.getStorageSync('token');
 
-            wx.request({
-                url: url,
-                method: 'GET',
-                header: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json'
-                },
-                success(res) {
+        getUserMatchedData(callback) {
+            const that = this;
+            const url = `${getApp().globalData.ip_addr}/course/api/user-matched-data/`;
+
+            request(url, {
+                    method: 'GET',
+                })
+                .then(res => {
                     const data = res.data;
 
                     // 获取当前时间
@@ -92,11 +90,11 @@ Component({
                             callback();
                         }
                     });
-                },
-                fail(err) {
+                })
+                .catch(err => {
                     console.error('Failed to fetch user Matched data:', err);
-                }
-            });
+                });
         },
+
     },
 });

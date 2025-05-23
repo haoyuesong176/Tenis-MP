@@ -1,3 +1,5 @@
+const request = require('../../utils/request').default;
+
 Component({
 
     data: {
@@ -24,21 +26,17 @@ Component({
             });
         },
 
+
         requestUnMatching(recordId, callback) {
+            const url = `${getApp().globalData.ip_addr}/course/api/field-unmatching/`;
 
-            const token = wx.getStorageSync('token');
-
-            wx.request({
-                url: `${getApp().globalData.ip_addr}/course/api/field-unmatching/`,
-                method: 'POST',
-                header: {
-                    'Authorization': 'Bearer ' + token, 
-                    'content-type': 'application/json', 
-                },
-                data: {
-                    id_list: [recordId]
-                },
-                success: (res) => {
+            request(url, {
+                    method: 'POST',
+                    data: {
+                        id_list: [recordId]
+                    }
+                })
+                .then(res => {
                     if (res.statusCode === 200 && res.data) {
                         wx.showToast({
                             title: '取消成功'
@@ -54,23 +52,22 @@ Component({
                         });
                         console.error('取消失败:', res.data);
                         if (typeof callback === 'function') {
-                            callback(false); // 执行失败回调
+                            callback(false);
                         }
                     }
-                },
-                fail: (err) => {
+                })
+                .catch(err => {
                     wx.showToast({
                         icon: 'none',
                         title: '网络异常，请检查网络'
                     });
                     console.error('请求失败:', err);
                     if (typeof callback === 'function') {
-                        callback(false); // 执行失败回调
+                        callback(false);
                     }
-                }
-            });
-
+                });
         },
+
 
         getNextHalfHour(time) {
             const [hour, minute] = time.split(':').map(Number);
@@ -84,19 +81,19 @@ Component({
             return `${nextHour}:${nextMinute}`;
         },
 
+
         getUserMatchingData(callback) {
             const url = `${getApp().globalData.ip_addr}/course/api/user-matching-data/`;
-            const that = this;
             const token = wx.getStorageSync('token');
 
-            wx.request({
-                url: url,
-                method: 'GET',
-                header: {
-                    'Authorization': 'Bearer ' + token,
-                    'Content-Type': 'application/json'
-                },
-                success(res) {
+            request(url, {
+                    method: 'GET',
+                    header: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => {
                     const data = res.data;
 
                     // 获取当前时间
@@ -121,7 +118,7 @@ Component({
                         item.week = weekLabels[weekDay];
 
                         // 添加 end_time 字段
-                        item.end_time = that.getNextHalfHour(item.time);
+                        item.end_time = this.getNextHalfHour(item.time);
 
                         // 将 price 转为保留两位小数的字符串
                         item.price = parseFloat(item.price).toFixed(2); // 转成字符串格式
@@ -136,22 +133,22 @@ Component({
                     });
 
                     // 更新数据
-                    that.setData({
+                    this.setData({
                         blocks: {
                             upcoming: upcoming,
                             finished: finished
                         }
                     }, () => {
-                        console.log('User book data fetched:', that.data.blocks);
+                        console.log('User matching data fetched:', this.data.blocks);
                         if (typeof callback === 'function') {
                             callback();
                         }
                     });
-                },
-                fail(err) {
-                    console.error('Failed to fetch user book data:', err);
-                }
-            });
+                })
+                .catch(err => {
+                    console.error('Failed to fetch user matching data:', err);
+                });
         },
+
     },
 });
