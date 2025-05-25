@@ -5,11 +5,11 @@
         <!-- 1. User Info -->
         <view class="top-bar">
             <view class="user-info">
-                <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+                <!-- <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar"> -->
                     <view class="avatar-container">
                         <image class="avatar" src="{{profileDict.icon}}" mode="aspectFill"></image>
                     </view>
-                </button>
+                <!-- </button> -->
                 <view class="user-details">
                     <text class="name">{{profileDict.nickname}}</text>
                 </view>
@@ -95,7 +95,7 @@
                         <image class="module-icon" src="/images/pencil.and.list.clipboard.png" mode="aspectFit" />
                         <text class="module-text">支付记录</text>
                     </view>
-                    <view class="module" bindtap="handleTap">
+                    <view class="module" bindtap="handleSettingsTap">
                         <image class="module-icon" src="/images/gearshape.png" mode="aspectFit" />
                         <text class="module-text">账户管理</text>
                     </view>
