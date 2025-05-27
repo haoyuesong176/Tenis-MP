@@ -1,0 +1,22 @@
+<view class="container">
+
+    <view class="navbar">
+        <t-navbar t-class-placeholder="t-navbar-placeholder" t-class-content="t-navbar-content" title="账户管理" left-arrow bind:go-back="handleBack" />
+    </view>
+
+    <view class="settings-list">
+        <view class="item" bindtap="goToSubSettings" data-title="personal">
+            <view class="item-name">个人资料</view>
+            <image class="item-chevron" src="/images/chevron.right.png" />
+        </view>
+        <view class="item" bindtap="goToSubSettings" data-title="隐私与安全">
+            <view class="item-name">查询条款</view>
+            <image class="item-chevron" src="/images/chevron.right.png" />
+        </view>
+        <view class="item" bindtap="goToSubSettings" data-title="隐私与安全">
+            <view class="item-name">关于TENNIS-GO</view>
+            <image class="item-chevron" src="/images/chevron.right.png" />
+        </view>
+    </view>
+
+</view>

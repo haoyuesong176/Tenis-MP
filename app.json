@@ -8,7 +8,8 @@
         "pages/mybooked/mybooked",
         "pages/mymatching/mymatching",
         "pages/mymatched/mymatched",
-        "pages/settings/settings"
+        "pages/settings/index/index",
+        "pages/settings/personal/personal"
     ],
     "window": {
         "navigationBarTitleText": "功能演示",

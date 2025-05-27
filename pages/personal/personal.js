@@ -6,16 +6,11 @@ Page({
         todaySchedule: [],
     },
 
-    // 1. 异步问题
-    // onLoad() {
-    //     this.getUserProfile();
-    // },
-
     onShow() {
-        this.getUserProfile();
-        this.getTodaySchedule();
+        this.getUserProfile(() => {
+            this.getTodaySchedule();
+        });
     },
-
 
     getTodaySchedule(e) {
         const that = this;
@@ -83,7 +78,7 @@ Page({
 
     handleSettingsTap() {
         wx.navigateTo({
-            url: '/pages/settings/settings',
+            url: '/pages/settings/index/index',
         });
     },
 

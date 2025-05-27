@@ -1,0 +1,50 @@
+<view class="container">
+
+    <view class="navbar">
+        <t-navbar t-class-placeholder="t-navbar-placeholder" t-class-content="t-navbar-content" title="个人资料" left-arrow bind:go-back="handleBack" />
+    </view>
+
+    <view class="settings-list">
+        <view class="item" bindtap="goToSubSettings" data-title="昵称">
+            <view class="item-name">头像</view>
+            <view class="item-content">
+                <view class="avatar-btn-container">
+                    <button class="avatar-btn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+                        <view class="avatar-container">
+                            <image class="avatar" src="{{profileDict.icon}}" mode="aspectFill"></image>
+                        </view>
+                    </button>
+                </view>
+            </view>
+            <image class="item-chevron" src="/images/chevron.right.png" />
+        </view>
+        <view class="item" bindtap="goToSubSettings" data-title="昵称">
+            <view class="item-name">昵称</view>
+            <view class="item-content">
+                <input id="nicknameInput" type="nickname" class="weui-input" placeholder="{{profileDict.nickname}}" />
+            </view>
+            <image class="item-chevron" src="/images/chevron.right.png" />
+        </view>
+        <view class="item" bindtap="goToSubSettings" data-title="昵称">
+            <view class="item-name">名字</view>
+            <view class="item-content">{{profileDict.realname}}</view>
+            <image class="item-chevron" src="/images/chevron.right.png" />
+        </view>
+        <view class="item" bindtap="goToSubSettings" data-title="手机">
+            <view class="item-name">手机号</view>
+            <view class="item-content">{{profileDict.phone}}</view>
+            <image class="item-chevron" src="/images/chevron.right.png" />
+        </view>
+        <view class="item" bindtap="goToSubSettings" data-title="性别">
+            <view class="item-name">性别</view>
+            <view class="item-content">男</view>
+            <image class="item-chevron" src="/images/chevron.right.png" />
+        </view>
+    </view>
+
+    <view class="bottom-bar">
+        <view class="save-button-view" bindtap="submitSave">
+            <text>保存</text>
+        </view>
+    </view>
+</view>
